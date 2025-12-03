@@ -1,0 +1,55 @@
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Pagination, Autoplay } from "swiper/modules";
+import "../index.css"
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+
+import FeaturedCards from "./FeaturedCards";
+
+const Slider = ({ products }) => {
+  return (
+    <Swiper
+      slidesPerView={1}
+      spaceBetween={30}
+      freeMode={true}
+      loop={true}
+      autoplay={{
+        delay: 1500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
+      pagination={{
+        clickable: true,
+      }}
+      modules={[FreeMode, Pagination, Autoplay]}
+      breakpoints={{
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+      }}
+      className="mySwiper"
+    >
+      {products.map((product) => (
+        <SwiperSlide key={product.id}>
+          <FeaturedCards product={product} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+export default Slider;
