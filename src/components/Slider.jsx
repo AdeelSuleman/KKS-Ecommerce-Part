@@ -45,7 +45,9 @@ const Slider = ({ products }) => {
     >
       {products.map((product) => (
         <SwiperSlide key={product.id}>
+          <div className="flex flex-col items-center-safe">
           <FeaturedCards product={product} />
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Logo from "../assets/Logo/Logo2.png";
 import Facebook from "../assets/Home/facebook.png";
@@ -24,17 +24,17 @@ const Footer = () => {
   }, []);
   const SocialIcons = [
     {
-      icon: Facebook,
+      icon: <FaFacebook/>,
       name: "Facebook",
       url: "",
     },
     {
-      icon: Insta,
+      icon: <FaInstagram/>,
       name: "Instagram",
       url: "",
     },
     {
-      icon: Tiktok,
+      icon: <FaTiktok/>,
       name: "Tik Tok",
       url: "",
     },
@@ -48,17 +48,18 @@ const Footer = () => {
                     xl:w-[1280px] xl:grid-cols-5"
       >
         {/* Logo & Socail Icons */}
-        <div className="">
+        <div className="flex flex-col items-center-safe md:items-start">
           <img src={Logo} alt="Logo" className="w-[160px]" />
-          <div className="grid grid-cols-3 p-5 gap-4 xs:w-fit ">
+          <div className="grid grid-cols-3 p-5 gap-6 xs:w-fit ">
             {SocialIcons.map((socail, index) => (
-              <div key={index} className="">
+              <div key={index} className="text-Heading6">
                 <Link to={socail.url}>
-                  <img
+                  {/* <img
                     src={socail.icon}
                     alt={socail.name}
                     className="w-8 h-7"
-                  />
+                  /> */}
+                  {socail.icon}
                 </Link>
               </div>
             ))}
@@ -130,8 +131,8 @@ const Footer = () => {
         </div>
 
         {/* Contact Info */}
-        <div className="flex flex-col xl:items-center-safe">
-          <h1 className="text-Paragraph6 text-textPrimary font-AbrilFatface xs:text-left w-full tracking-[0.50px]">
+        <div className="flex flex-col items-center-safe ">
+          <h1 className="text-Paragraph6 text-textPrimary font-AbrilFatface tracking-[0.50px] w-fit lg:w-full lg:text-left">
             Flavour Just a Mesaage Away!
           </h1>
 
@@ -147,7 +148,7 @@ const Footer = () => {
         <Link to="">
           <div className="flex justify-center-safe items-center-safe gap-2 mt-5 font-Lato w-fit">
                 <MdEmail className="text-Paragraph3" />
-                <p className="text-Paragraph7">info@kk.com</p>
+                <p className="text-Paragraph7">info@kks.com</p>
           </div>
         </Link>
         </div>

@@ -7,21 +7,21 @@ const Hero = () => {
   return (
     <section
       style={{ backgroundImage: `url(${HeroBanner})` }}
-      className="bg-cover bg-center bg-no-repeat overflow-hidden xs:py-10 md::py-16 xl:py-22 bg-Primarybg"
+      className="bg-cover bg-center bg-no-repeat overflow-hidden xs:pt-5 xs:pb-8 md:py-16 xl:py-22 bg-Primarybg"
     >
       <div
         className="mx-auto px-4
           xs:w-[95vw] xs:gap-4
           flex flex-wrap
           md:flex-nowrap justify-between items-center
-          xl:w-[1280px] xl:gap-10"
+          xl:w-[1280px] xl:gap-10 "
       >
         {/* Right Box */}
         <div
           className="h-full
               xs:w-full xs:order-2
-              md:w-1/2 md:order-1
-              lg:w-2/4"
+              md:w-1/2 md:order-1 md:pr-6
+              lg:w-2/4 "
         >
           <h1
             className="font-Poppins font-bold 
@@ -33,7 +33,7 @@ const Hero = () => {
           </h1>
 
           <p
-            className="font-Lato 
+            className="font-Lato text-justify
               xs:text-Paragraph6
               2xl:text-Paragraph4"
           >
@@ -43,7 +43,7 @@ const Hero = () => {
             nec.
           </p>
 
-          <div className="mt-5">
+          <div className="mt-5 flex flex-col items-center-safe md:items-start">
             <ShopNowBtn />
           </div>
         </div>

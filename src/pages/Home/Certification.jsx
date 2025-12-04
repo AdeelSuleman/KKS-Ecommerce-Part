@@ -18,10 +18,10 @@ const Certification = () => {
         CERTIFICATIONS
       </h1>
       <div
-        className="mx-auto mt-20 px-5 grid gap-5 items-center
-                xs:w-[95vw] xs:grid-cols-1
-                sm:grid-cols-2
-                xl:w-[1280px] lg:grid-cols-4"
+        className="mx-auto mt-10 px-5 grid  gap-y-16 items-center
+                xs:w-[80vw] xs:grid-cols-2 xs:gap-x-6
+                sm:grid-cols-2  lg:grid-cols-4 lg:gap-x-4
+                xl:w-[1280px] xl:gap-x-10"
       >
         {Certificates.map((Certi) => (
           <div className="flex flex-col items-center-safe">

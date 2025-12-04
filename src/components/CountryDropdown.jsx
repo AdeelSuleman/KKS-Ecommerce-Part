@@ -20,7 +20,7 @@ const CountryDropdown = () => {
 
       {/* Dropdown Menu */}
       {open && (
-        <ul className="absolute mt-2 w-[150px] bg-white border border-gray-200 shadow-md rounded-xl z-50">
+        <ul className="absolute mt-2 w-[150px] bg-white border border-gray-200 shadow-md rounded-xl z-10 overflow-hidden">
           {countries.map((country, i) => (
             <li
               key={i}

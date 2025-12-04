@@ -6,11 +6,11 @@ const FeaturedCards = ({ product }) => {
 
   return (
     <div
-      className="flex flex-col items-center w-full"
+      className="flex flex-col items-center xs:w-[300px] sm:w-full bg-gray-100 p-3 rounded-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="w-full flex justify-center mb-6">
+      <div className="xs:w-[300px] w-full flex justify-center mb-6">
         <div
           className="relative w-full overflow-hidden"
           style={{ perspective: "1000px" }}
@@ -34,8 +34,8 @@ const FeaturedCards = ({ product }) => {
         </div>
       </div>
 
-      <div className="bg-Primarybg w-full p-4 flex flex-col items-center-safe">
-        <h3 className="text-textPrimary font-Lato font-bold text-center mb-6 text-Paragraph3">
+      <div className=" w-full p-4 flex flex-col items-center-safe">
+        <h3 className="text-textPrimary font-Lato font-bold text-center mb-6 xs:text-Paragraph4 md:text-Paragraph6 lg:text-Paragraph4 text-Paragraph3">
           {product.name}
         </h3>
         <ShopNowBtn />

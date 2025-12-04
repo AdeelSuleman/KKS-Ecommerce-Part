@@ -95,7 +95,7 @@ const Navbar = () => {
         </div>
 
       {/* only mobile */}
-      <div className="px-4 lg:hidden">
+      <div className="px-4 lg:hidden mt-3">
       <SearchBar
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}

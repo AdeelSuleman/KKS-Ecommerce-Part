@@ -26,24 +26,43 @@ const SearchBar = ({
         {/* Category Dropdown Button */}
         <div className="relative">
           <button
-            onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
-            onBlur={() => setTimeout(() => setCategoryDropdownOpen(false), 200)}
             className="flex items-center gap-1 px-4 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md transition-colors"
           >
             <span className="text-gray-500 font-Lato">{selectedCategory}</span>
             <IoChevronDown className="text-xs text-gray-500" />
           </button>
+        </div>
 
-          {/* Dropdown Box */}
+        {/* Vertical Divider */}
+        <div className="w-px h-6 bg-gray-300"></div>
+
+        {/* Search Input */}
+        <div className="flex-1 relative">
+          <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setCategoryDropdownOpen(true)}
+            onClick={() => setCategoryDropdownOpen(true)}
+            placeholder="Search for items..."
+            className="w-full py-2 px-4 text-sm text-textGray font-Lato placeholder:font-Lato placeholder-textGray focus:outline-none rounded-r-md"
+          />
+
+          {/* Dropdown Box - Now attached to search input */}
           {categoryDropdownOpen && (
             <div
-              className="absolute top-full left-0  bg-DropDownBg rounded-bl-2xl rounded-br-2xl shadow-md border border-DropDownBorder shadow-DropDownBorder z-50 overflow-hidden"
+              className="absolute top-full bg-DropDownBg rounded-bl-2xl rounded-br-2xl shadow-md border border-DropDownBorder shadow-DropDownBorder z-50 overflow-hidden
+                    xs:left-[-135px] xs:w-[calc(100%+135px)]
+                    sm:left-0 sm:w-full
+                    md:w-full
+                    lg:w-full
+                    xl:w-full
+                    2xl:w-full"
               onMouseEnter={() => setCategoryDropdownOpen(true)}
               onMouseLeave={() => setCategoryDropdownOpen(false)}
             >
-              <div className="flex w-fit ">
+              <div className="flex w-full">
                 {/* Left Product List */}
-                <div className="w-[120px] bg-DropDownBg border-r border-DropDownBorder overflow-y-auto">
+                <div className="xs:w-[120px] sm:w-[180px] bg-DropDownBg border-r border-DropDownBorder overflow-y-auto">
                   <ul>
                     {filteredProducts.length > 0 ? (
                       filteredProducts
@@ -61,7 +80,7 @@ const SearchBar = ({
                             <img
                               src={p.image1}
                               alt={p.name}
-                              className="w-8 h-8 object-contain rounded"
+                              className="xs:w-8 xs:h-8 sm:w-14 sm:h-14 object-contain rounded"
                             />
                             <div className="flex-1">
                               <div className="font-semibold font-Montserrat text-Paragraph8 text-textPrimary">
@@ -82,16 +101,16 @@ const SearchBar = ({
                 </div>
 
                 {/* Right Preview Box */}
-                <div className="flex-1 w-[200px] p-3 flex items-center justify-center">
-                  <div>
+                <div className="flex-1 xs:w-[200px] xs:p-3 sm:p-5 sm:w-[90%] flex items-center justify-center ">
+                  <div className="w-full">
                     {hoveredProduct ? (
                       <>
                         <img
                           src={hoveredProduct.image1}
                           alt={hoveredProduct.name}
-                          className="mx-auto w-40 h-40 object-contain mb-[-60px]"
+                          className="mx-auto xs:w-40 xs:h-40 w-full h-full object-contain mb-[-60px]"
                         />
-                        <div className="w-fit bg-DropDownBgHover2 rounded-md shadow-md px-4 pb-4 pt-16 text-center">
+                        <div className="w-full bg-DropDownBgHover2 rounded-md shadow-md px-4 pb-4 pt-16 text-center">
                         <h3 className="font-bold font-Montserrat text-Paragraph7 text-textPrimary mb-2">
                           {hoveredProduct.name}
                         </h3>
@@ -113,19 +132,6 @@ const SearchBar = ({
               </div>
             </div>
           )}
-        </div>
-
-        {/* Vertical Divider */}
-        <div className="w-px h-6 bg-gray-300"></div>
-
-        {/* Search Input */}
-        <div className="flex-1">
-          <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search for items..."
-            className="w-full py-2 px-4 text-sm text-textGray font-Lato placeholder:font-Lato placeholder-textGray focus:outline-none rounded-r-md"
-          />
         </div>
       </div>
     </div>

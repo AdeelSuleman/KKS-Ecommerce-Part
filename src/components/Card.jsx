@@ -48,17 +48,17 @@ const Card = ({ filteredProduct }) => {
             />
           )}
           <div className="p-5">
-            <h3 className="text-textWhite font-Lato font-bold text-Paragraph1">
+            <h3 className="text-textWhite font-Lato font-bold xs:text-Paragraph3 lg:text-Paragraph4 text-Paragraph1">
               {product.name}
             </h3>
-            <p className="text-textGray font-Lato font-normal text-Paragraph5 mt-2">
+            <p className="text-textGray font-Lato font-normal xs:text-Paragraph6 text-Paragraph5 mt-2">
               {product.category}
             </p>
             <div className="flex items-center gap-8 my-3">
-              <p className="text-textWhite font-Lato font-bold text-Paragraph5">
+              <p className="text-textWhite font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
                 {product.gram1}
               </p>
-              <p className="text-textGray font-Lato font-bold text-Paragraph5">
+              <p className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
                 {product.gram1}
               </p>
             </div>

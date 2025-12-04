@@ -18,7 +18,7 @@ const FeaturedSection = () => {
                 lg:text-Heading2
                 xl:text-Heading1"
       >
-        FEATURED PRODUCTS
+        FEATURED <br className="md:hidden" /> PRODUCTS
       </h1>
       <div className="mx-auto mt-20 xs:w-[95vw] xl:w-[1280px] px-5">
         <Slider products={featuredProducts} />

@@ -1,4 +1,5 @@
 import React from "react";
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 
@@ -43,7 +44,21 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
                   }
                 }}
               >
-                <NavLink to={menu.nav_Url}>{menu.nav_Title}</NavLink>
+                <NavLink to={menu.nav_Url} className="flex items-center gap-2">
+                  {menu.nav_Title}
+                  {/* Arrow icons: show only if there is a sub menu */}
+                  {menu.sub_Menu && (
+                    <span className="ml-2 ">
+                      {openSubMenu === i ? (
+                        // Arrow Up SVG
+                        <TiArrowSortedUp />
+                      ) : (
+                        // Arrow Down SVG
+                        <TiArrowSortedDown />
+                      )}
+                    </span>
+                  )}
+                </NavLink>
               </div>
 
               {/* Sub Menu */}
