@@ -20,21 +20,23 @@ const ProductSection = () => {
   return (
     <section
       style={{ backgroundImage: `url(${Banner})` }}
-      className="bg-cover bg-center bg-no-repeat xs:py-10 md::py-16 xl:py-22 border-0"
+      className="bg-cover bg-center bg-no-repeat xs:py-10 md::py-16 xl:py-20 border-0"
     >
     <div className="px-6 xl:px-4">
       <h1
-        className="text-center text-textSecondary font-Poppins font-bold 
-                xs:text-Heading5
-                lg:text-Heading2
-                xl:text-Heading1"
+        className="font-Poppins font-bold text-textSecondary
+                xs:text-Heading4 xs:text-center 
+                md:text-Heading3 
+                lg:text-Heading3
+                xl:text-Heading2"
       >
         PRODUCT RANGES
       </h1>
 
       <h2
         className="text-center text-textWhite font-Lato font-bold
-            xs:text-Paragraph2
+            xs:text-Paragraph4
+            md:text-Paragraph3
             xl:text-Paragraph1"
       >
         THE KIND YOU WONT BE ABLE TO RESIST
@@ -65,7 +67,7 @@ const ProductSection = () => {
             xs:grid-cols-1 xs:w-[300px]
             sm:grid-cols-2 sm:w-[95vw]
             lg:grid-cols-3
-            xl:grid-cols-4 xl:w-[1280px]"
+            xl:grid-cols-4 xl:w-7xl"
       >
         <Card filteredProduct={visibleProducts} />
       </section>

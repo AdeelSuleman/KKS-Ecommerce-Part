@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaWhatsapp, FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
+import { FaWhatsapp, FaFacebook, FaTiktok } from "react-icons/fa";
+import { RiInstagramFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 import Logo from "../assets/Logo/Logo2.png";
 import Facebook from "../assets/Home/facebook.png";
@@ -29,7 +30,7 @@ const Footer = () => {
       url: "",
     },
     {
-      icon: <FaInstagram/>,
+      icon: <RiInstagramFill/>,
       name: "Instagram",
       url: "",
     },
@@ -43,16 +44,16 @@ const Footer = () => {
     <footer className="bg-FooterBg flex flex-col items-center-safe">
       <section
         className="px-5 grid gap-5 py-16 md:py-24 
-                    xs:w-[95vw] 
-                    sm:grid-cols-3
-                    xl:w-[1280px] xl:grid-cols-5"
+                    xs:w-[80vw] 
+                    sm:grid-cols-3 sm:w-[95vw] lg:grid-cols-4
+                    xl:w-7xl xl:grid-cols-5"
       >
         {/* Logo & Socail Icons */}
         <div className="flex flex-col items-center-safe md:items-start">
-          <img src={Logo} alt="Logo" className="w-[160px]" />
-          <div className="grid grid-cols-3 p-5 gap-6 xs:w-fit ">
+          <img src={Logo} alt="Logo" className="xs:w-[200px] lg:w-[180px] xl:w-[230px]" />
+          <div className="grid grid-cols-3 p-3 gap-5 xs:w-fit xl:mx-auto">
             {SocialIcons.map((socail, index) => (
-              <div key={index} className="text-Heading6">
+              <div key={index} className="text-Heading5 xl:text-Heading4">
                 <Link to={socail.url}>
                   {/* <img
                     src={socail.icon}
@@ -67,7 +68,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="flex flex-col items-center-safe">
+        <div className="flex flex-col items-center-safe relative">
           <div className="flex flex-col items-center-safe w-full sm:w-40">
             <h1 className="font-Poppins font-bold text-Paragraph6 text-btnPrimary xs:text-left w-full">
               Quick Links
@@ -88,10 +89,12 @@ const Footer = () => {
               )}
             </ul>
           </div>
+          {/* divider */}
+          <div className="w-[1.5px] h-full bg-textGray absolute top-0 sm:right-5 hidden sm:inline"></div>
         </div>
 
         {/* Product Range */}
-        <div className="flex flex-col items-center-safe border-0 sm:border-l xl:border-r border-textGray">
+        <div className="flex flex-col items-center-safe relative">
           <div className="flex flex-col items-center-safe w-full sm:w-40">
             <h1 className="font-Poppins font-bold text-Paragraph6 text-btnPrimary xs:text-left w-full">
               Product Ranges
@@ -110,6 +113,8 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+          {/* divider */}
+          <div className="w-[1.5px] h-full bg-textGray absolute top-0 sm:right-0 hidden xl:inline"></div>
         </div>
 
         {/* Product Range 2 */}
@@ -132,12 +137,12 @@ const Footer = () => {
 
         {/* Contact Info */}
         <div className="flex flex-col items-center-safe ">
-          <h1 className="text-Paragraph6 text-textPrimary font-AbrilFatface tracking-[0.50px] w-fit lg:w-full lg:text-left">
+          <h1 className="text-Paragraph7 text-textPrimary font-AbrilFatface tracking-[0.50px] w-fit lg:w-full">
             Flavour Just a Mesaage Away!
           </h1>
 
           <button
-            className="flex items-center gap-2 mt-5 text-Paragraph6 text-textWhite font-bold font-Inter w-fit
+            className="flex justify-center items-center gap-2 mt-5 text-Paragraph6 text-textWhite font-bold font-Inter w-full
                                 bg-btnPrimary px-9 py-1.5 rounded-xl border-0 cursor-pointer transition-all duration-300
                                 focus:ring-2 focus:ring-btnPrimary focus:outline-none hover:to-btnPrimaryHover"
           >
@@ -154,7 +159,7 @@ const Footer = () => {
         </div>
       </section>
       <section
-        className="p-5 xs:w-[95vw] xl:w-[1280px] border-0 border-t border-textGray"
+        className="p-5 xs:w-[95vw] xl:w-7xl border-0 border-t border-textGray"
       >
         <p className="text-center text-Paragraph8 text-btnPrimary font-Lato font-normal tracking-[0.50px]">Website Powered by Codenthic.</p>
       </section>

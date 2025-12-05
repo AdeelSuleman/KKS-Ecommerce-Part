@@ -10,17 +10,18 @@ const FeaturedSection = () => {
   return (
     <section
       style={{ backgroundImage: `url(${Banner})` }}
-      className="bg-contain lg:bg-center bg-no-repeat overflow-hidden xs:py-10 md:py-16 xl:py-20 border-0"
+      className="bg-contain bg-no-repeat overflow-hidden xs:py-10 md:py-10 lg:py-14 border-0 "
     >
       <h1
-        className="text-center text-textPrimary font-Poppins font-bold 
-                xs:text-Heading5
-                lg:text-Heading2
-                xl:text-Heading1"
+        className="font-Poppins font-bold text-textPrimary
+                xs:text-Heading4 xs:text-center 
+                md:text-Heading3 
+                lg:text-Heading3
+                xl:text-Heading2"
       >
         FEATURED <br className="md:hidden" /> PRODUCTS
       </h1>
-      <div className="mx-auto mt-20 xs:w-[95vw] xl:w-[1280px] px-5">
+      <div className="mx-auto mt-20 xs:w-[95vw] xl:w-7xl px-5">
         <Slider products={featuredProducts} />
       </div>
     </section>

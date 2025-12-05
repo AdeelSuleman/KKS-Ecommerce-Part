@@ -8,12 +8,13 @@ const Certification = () => {
   const Certificates = [Certificate1, Certificate2, Certificate3, Certificate4];
 
   return (
-    <section className="overflow-hidden xs:py-10 md:py-16 xl:py-20">
+    <section className="overflow-hidden xs:pt-6 xs:pb-12 md:py-16 xl:pb-20">
       <h1
-        className="text-center text-textPrimary font-Poppins font-bold 
-                xs:text-Heading5
-                lg:text-Heading2
-                xl:text-Heading1"
+        className="font-Poppins font-bold text-textPrimary
+                xs:text-Heading4 xs:text-center 
+                md:text-Heading3 
+                lg:text-Heading3
+                xl:text-Heading2"
       >
         CERTIFICATIONS
       </h1>
@@ -21,7 +22,7 @@ const Certification = () => {
         className="mx-auto mt-10 px-5 grid  gap-y-16 items-center
                 xs:w-[80vw] xs:grid-cols-2 xs:gap-x-6
                 sm:grid-cols-2  lg:grid-cols-4 lg:gap-x-4
-                xl:w-[1280px] xl:gap-x-10"
+                xl:w-7xl xl:gap-x-10"
       >
         {Certificates.map((Certi) => (
           <div className="flex flex-col items-center-safe">

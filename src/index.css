@@ -21,7 +21,7 @@
   /* Text Color */
   --color-textPrimary: #060202;
   --color-textWhite: #fff;
-  --color-textSecondary: #FFCC02;
+  --color-textSecondary: #EEE609;
   --color-textGray: #848484;
 
   /* border Color */
@@ -36,30 +36,30 @@
   --color-btnYellowhover: #FFCC02;
 
   /* Heading Text */
-  --text-Heading1: 75px;
+  --text-Heading1: 65px;
   --text-Heading2: 60px;
-  --text-Heading3: 55px;
-  --text-Heading4: 40px;
-  --text-Heading5: 35px;
-  --text-Heading6: 30px;
+  --text-Heading3: 40px;
+  --text-Heading4: 30px;
+  --text-Heading5: 25px;
+  --text-Heading6: 20px;
   
   /* Paragraph text */
-  --text-Paragraph1: 30px;
-  --text-Paragraph2: 26px;
-  --text-Paragraph3: 24px;
-  --text-Paragraph4: 22px;
-  --text-Paragraph5: 20px;
-  --text-Paragraph6: 18px;
-  --text-Paragraph7: 16px;
-  --text-Paragraph8: 14px;
-  --text-Paragraph9: 12px;
+  --text-Paragraph1: 28px;
+  --text-Paragraph2: 23px;
+  --text-Paragraph3: 22px;
+  --text-Paragraph4: 20px;
+  --text-Paragraph5: 18px; 
+  --text-Paragraph6: 16px;
+  --text-Paragraph7: 14px;
+  --text-Paragraph8: 12px;
+  --text-Paragraph9: 10px;
   
   --breakpoint-xs: 350px; /*350px*/
   --breakpoint-sm: 640px; /*640px*/
   --breakpoint-md: 768px; /*768px*/
   --breakpoint-lg: 1024px; /*1024px*/
   --breakpoint-xl: 1280px; /*1280px*/
-  --breakpoint-2xl: 1536px; /*1536px*/
+  --breakpoint-2xl: 1400px; /*1536px*/
 
   
 }

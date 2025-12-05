@@ -7,35 +7,36 @@ const Hero = () => {
   return (
     <section
       style={{ backgroundImage: `url(${HeroBanner})` }}
-      className="bg-cover bg-center bg-no-repeat overflow-hidden xs:pt-5 xs:pb-8 md:py-16 xl:py-22 bg-Primarybg"
+      className="bg-cover bg-center bg-no-repeat overflow-hidden xs:pt-5 xs:pb-8 lg:pb-10 xl:pt-8 xl:pb-14 bg-Primarybg"
     >
       <div
-        className="mx-auto px-4
+        className="mx-auto px-4 
           xs:w-[95vw] xs:gap-4
           flex flex-wrap
           md:flex-nowrap justify-between items-center
-          xl:w-[1280px] xl:gap-10 "
+          xl:w-7xl xl:gap-10 "
       >
         {/* Right Box */}
         <div
-          className="h-full
+          className="h-full 
               xs:w-full xs:order-2
-              md:w-1/2 md:order-1 md:pr-6
-              lg:w-2/4 "
+              md:w-80 md:order-1 md:pr-6
+              lg:w-2/5"
         >
           <h1
             className="font-Poppins font-bold 
-                xs:text-Heading5
-                lg:text-Heading2
-                xl:text-Heading1"
+                xs:text-Heading4 xs:text-center sm:text-left
+                md:text-Heading3 
+                lg:text-Heading3
+                xl:text-Heading2"
           >
             Main Heading
           </h1>
 
           <p
             className="font-Lato text-justify
-              xs:text-Paragraph6
-              2xl:text-Paragraph4"
+              xs:text-Paragraph6 md:pr-5 lg:pr-[68px]
+              xl:text-Paragraph4 xl:pr-8"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
             sit amet nibh ligula. Aenean sed laoreet elit. Donec ac nulla vel
@@ -43,7 +44,7 @@ const Hero = () => {
             nec.
           </p>
 
-          <div className="mt-5 flex flex-col items-center-safe md:items-start">
+          <div className="mt-5 flex flex-col items-center-safe sm:items-start">
             <ShopNowBtn />
           </div>
         </div>
@@ -53,8 +54,9 @@ const Hero = () => {
           className="
               h-full
               xs:w-full xs:order-1
-              md:w-1/2 md:order-2
-              lg:w-2/4"
+              md:w-[360px] md:order-2
+              lg:w-[550px]
+              xl:w-[740px]"
         >
           <InlineVideoPlayer />
         </div>

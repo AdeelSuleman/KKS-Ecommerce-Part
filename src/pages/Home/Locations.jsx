@@ -4,13 +4,14 @@ import Banner from "../../assets/Home/map1.png"
 const Locations = () => {
   return (
     <section
-      className="overflow-hidden xs:py-5 xs:pb-6 md:py-8 md:pb-9 flex flex-col items-center-safe"
+      className="overflow-hidden xs:py-5 xs:pb-6 md:py-0 md:pb-0 lg:py-0 flex flex-col items-center-safe"
     >
         <h1
-            className="text-left text-textPrimary font-Poppins font-bold 
-                xs:text-Heading5
-                lg:text-Heading2
-                xl:text-Heading1"
+            className="font-Poppins font-bold text-textPrimary
+                xs:text-Heading4 xs:text-center 
+                md:text-Heading3 
+                lg:text-Heading3
+                xl:text-Heading2"
           >
             LOCATIONS
         </h1>

@@ -20,13 +20,13 @@ const SearchBar = ({
   }, [selectedCategory]);
 
   return (
-    <div className="relative flex-1 w-full">
+    <div className="relative flex-1 w-full xl:w-[550px]">
       <div className="flex items-center w-full bg-white border border-DropDownBorder rounded-md shadow-sm">
         
         {/* Category Dropdown Button */}
         <div className="relative">
           <button
-            className="flex items-center gap-1 px-4 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md transition-colors"
+            className="flex items-center gap-1 xs:px-2 sm:px-6 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md transition-colors"
           >
             <span className="text-gray-500 font-Lato">{selectedCategory}</span>
             <IoChevronDown className="text-xs text-gray-500" />

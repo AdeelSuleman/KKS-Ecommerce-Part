@@ -17,22 +17,23 @@ parturient montes, nascetur ridiculus mus.`;
   return (
     <section
       style={{ backgroundImage: `url(${Banner})` }}
-      className="bg-cover bg-center bg-no-repeat overflow-hidden xs:py-10 md:py-16 xl:py-22 border-0"
+      className="bg-cover bg-center bg-no-repeat overflow-hidden xs:py-10 md:py-16 lg:pb-28 xl:py-22 xl:pb-32 border-0"
     >
       <h1
-        className="text-center text-textSecondary font-Poppins font-bold 
-                xs:text-Heading5
-                lg:text-Heading2
-                xl:text-Heading1"
+        className="font-Poppins font-bold text-textSecondary
+                xs:text-Heading4 xs:text-center 
+                md:text-Heading3 
+                lg:text-Heading3
+                xl:text-Heading2"
       >
         OUR MIXES
       </h1>
       <div
-        className="p-1 mx-auto xs:mt-10 lg:mt-20
+        className="p-1 mx-auto xs:mt-10 lg:mt-10 px-4
             xs:w-[95vw] xs:gap-4
             flex flex-wrap
-            md:flex-nowrap justify-between items-center
-            xl:w-[1280px] xl:gap-10"
+            md:flex-nowrap justify-between items-start  
+            xl:w-7xl xl:gap-10"
       >
         {/* Right Box */}
         <div
@@ -43,9 +44,10 @@ parturient montes, nascetur ridiculus mus.`;
         >
           <h1
             className="font-Poppins font-bold text-textSecondary
-                xs:text-Heading5 xs:text-center md:text-left
-                lg:text-Heading2
-                xl:text-Heading1"
+                xs:text-Heading4 xs:text-center 
+                md:text-Heading3 md:text-left
+                lg:text-Heading3
+                xl:text-Heading2"
           >
             Bombay Biryani
           </h1>
@@ -69,14 +71,14 @@ parturient montes, nascetur ridiculus mus.`;
             </p>
             {!showAll ? (
               <button
-                className="text-textSecondary underline mt-2 transition-colors duration-200 hover:text-yellow-400 cursor-pointer"
+                className="text-textSecondary xs:pl-3 md:pl-0 underline transition-colors duration-200 hover:text-yellow-400 cursor-pointer"
                 onClick={() => setShowAll(true)}
               >
                 Read more
               </button>
             ) : (
               <button
-                className="text-textSecondary underline mt-2 transition-colors duration-200 hover:text-yellow-400 cursor-pointer"
+                className="text-textSecondary xs:pl-3 md:pl-0 underline transition-colors duration-200 hover:text-yellow-400 cursor-pointer"
                 onClick={() => setShowAll(false)}
               >
                 Less
@@ -92,7 +94,7 @@ parturient montes, nascetur ridiculus mus.`;
         {/* Left Box */}
         <div
           className="h-full xs:order-1 md:order-2
-              xs:w-full 
+              xs:w-[300px] xs:mx-auto
               md:w-1/2
               lg:w-2/5"
         >

@@ -25,13 +25,13 @@ const BannerSlider = () => {
       url: "",
     },
     {
-      banner: Banner2,
+      banner: Banner1,
       heading: "Ready to Cook? Discover Our Full Range.",
       description: "Find Your Next Meal Today!",
       url: "",
     },
     {
-      banner: Banner3,
+      banner: Banner1,
       heading: "Ready to Cook? Discover Our Full Range.",
       description: "Find Your Next Meal Today!",
       url: "",
@@ -60,7 +60,7 @@ const BannerSlider = () => {
             <div className="relative flex flex-col items-center-safe justify-center-safe">
               <img
                 src={banner.banner}
-                className="w-full xs:h-[22vh] sm:h-[32vh] md:h-[40vh] lg:h-[53vh] xl:h-[65vh]"
+                className="w-full h-[650px]"
                 alt={`Banner ${i + 1}`}
               />
               {/* Content Area */}

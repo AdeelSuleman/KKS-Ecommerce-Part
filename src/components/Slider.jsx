@@ -11,7 +11,9 @@ import "swiper/css/autoplay";
 
 import FeaturedCards from "./FeaturedCards";
 
-const Slider = ({ products }) => {
+const Slider = ({ products, maxVisible = 10 }) => {
+  const visible = Array.isArray(products) ? products.slice(0, maxVisible) : [];
+
   return (
     <Swiper
       slidesPerView={1}
@@ -43,7 +45,7 @@ const Slider = ({ products }) => {
       }}
       className="mySwiper"
     >
-      {products.map((product) => (
+      {visible.map((product) => (
         <SwiperSlide key={product.id}>
           <div className="flex flex-col items-center-safe">
           <FeaturedCards product={product} />

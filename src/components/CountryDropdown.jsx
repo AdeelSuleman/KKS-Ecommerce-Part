@@ -12,10 +12,10 @@ const CountryDropdown = () => {
       {/* Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-[130px] px-3 py-2 border rounded-lg bg-Primarybg text-textPrimary cursor-pointer"
+        className="flex items-center justify-between w-[130px] px-4 py-1.5 border rounded-lg bg-Primarybg text-textPrimary cursor-pointer text-Paragraph8 xl:text-Paragraph7"
       >
           
-        <span>{selected}</span> <IoChevronDown className="text-lg" />
+        <span>{selected}</span> <IoChevronDown className="" />
       </button>
 
       {/* Dropdown Menu */}
@@ -24,7 +24,7 @@ const CountryDropdown = () => {
           {countries.map((country, i) => (
             <li
               key={i}
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-Lato text-Paragraph6"
+              className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-Lato text-Paragraph8 xl:text-Paragraph7"
               onClick={() => {
                 setSelected(country);
                 setOpen(false);
