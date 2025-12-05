@@ -43,10 +43,11 @@ const Footer = () => {
   return (
     <footer className="bg-FooterBg flex flex-col items-center-safe">
       <section
-        className="px-5 grid gap-5 py-16 md:py-24 
-                    xs:w-[80vw] 
-                    sm:grid-cols-3 sm:w-[95vw] lg:grid-cols-4
-                    xl:w-7xl xl:grid-cols-5"
+        className="px-5 grid gap-5
+                    xs:w-[80vw] xs:pt-12 xs:pb-10
+                    sm:grid-cols-3 sm:w-[95vw] 
+                    lg:grid-cols-4 lg:pt-14 lg:pb-12
+                    xl:w-7xl xl:grid-cols-5 xl:py-20"
       >
         {/* Logo & Socail Icons */}
         <div className="flex flex-col items-center-safe md:items-start">
@@ -136,15 +137,15 @@ const Footer = () => {
         </div>
 
         {/* Contact Info */}
-        <div className="flex flex-col items-center-safe ">
-          <h1 className="text-Paragraph7 text-textPrimary font-AbrilFatface tracking-[0.50px] w-fit lg:w-full">
-            Flavour Just a Mesaage Away!
+        <div className="flex flex-col items-center-safe  sm:w-[88vw] sm:mx-auto lg:w-full lg:px-2">
+          <h1 className="text-Paragraph7 text-textPrimary font-AbrilFatface tracking-[0.50px] w-fit lg:w-full text-center">
+            Flavour Just a Message Away!
           </h1>
 
           <button
             className="flex justify-center items-center gap-2 mt-5 text-Paragraph6 text-textWhite font-bold font-Inter w-full
                                 bg-btnPrimary px-9 py-1.5 rounded-xl border-0 cursor-pointer transition-all duration-300
-                                focus:ring-2 focus:ring-btnPrimary focus:outline-none hover:to-btnPrimaryHover"
+                                focus:ring-2 focus:ring-btnPrimary focus:outline-none hover:to-btnPrimaryHover xs:w-[200px]"
           >
             <FaWhatsapp />
             <p>WhatsApp</p>

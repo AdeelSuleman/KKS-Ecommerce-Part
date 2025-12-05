@@ -13,8 +13,8 @@ import "swiper/css/autoplay";
 
 // Import Banners
 import Banner1 from "../../assets/ShopImages/Banner2.png";
-import Banner2 from "../../assets/Home/Banner.png";
-import Banner3 from "../../assets/Home/VideoThumbnail.png";
+// import Banner2 from "../../assets/Home.webp";
+// import Banner3 from "../../assets/Home/VideoThumbnail.png";
 
 const BannerSlider = () => {
   const SliderBanners = [
@@ -60,7 +60,7 @@ const BannerSlider = () => {
             <div className="relative flex flex-col items-center-safe justify-center-safe">
               <img
                 src={banner.banner}
-                className="w-full h-[650px]"
+                className="w-full h-auto"
                 alt={`Banner ${i + 1}`}
               />
               {/* Content Area */}

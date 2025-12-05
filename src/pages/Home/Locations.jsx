@@ -4,7 +4,7 @@ import Banner from "../../assets/Home/map1.png"
 const Locations = () => {
   return (
     <section
-      className="overflow-hidden xs:py-5 xs:pb-6 md:py-0 md:pb-0 lg:py-0 flex flex-col items-center-safe"
+      className="overflow-hidden  md:py-0 md:pb-0 lg:py-0 flex flex-col items-center-safe "
     >
         <h1
             className="font-Poppins font-bold text-textPrimary
@@ -16,7 +16,7 @@ const Locations = () => {
             LOCATIONS
         </h1>
 
-      <div className="px-3 xs:mt-6 md:mt-14 relative">
+      <div className="px-3 xs:mt-6 md:mt-10 relative">
         {/* Map Banner Image */}
         <img src={Banner} alt="Map" className="w-full h-auto" />
 

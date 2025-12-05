@@ -10,7 +10,7 @@ const FeaturedSection = () => {
   return (
     <section
       style={{ backgroundImage: `url(${Banner})` }}
-      className="bg-contain bg-no-repeat overflow-hidden xs:py-10 md:py-10 lg:py-14 border-0 "
+      className="bg-contain bg-no-repeat overflow-hidden xs:pt-10 xs:pb-7 lg:pt-14 lg:pb-12 border-0 "
     >
       <h1
         className="font-Poppins font-bold text-textPrimary

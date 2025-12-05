@@ -9,7 +9,7 @@ const Card = ({ filteredProduct }) => {
       {filteredProduct.map((product) => (
         <div
           key={product.id}
-          className="border border-textWhite rounded-2xl shadow-md overflow-hidden relative transition-all duration-300 h-[380px]
+          className="border border-textWhite rounded-2xl shadow-md overflow-hidden relative transition-all duration-300 h-fit cursor-pointer
                hover:shadow-lg hover:shadow-gray-800"
           onMouseEnter={() => setHoveredId(product.id)}
           onMouseLeave={() => setHoveredId(null)}
@@ -17,10 +17,11 @@ const Card = ({ filteredProduct }) => {
           <div className="relative w-full overflow-hidden bg-white flex flex-col items-center h-[220px]">
             {/* Soft colored blurred shadow behind the product (centered) */}
             <div
-              className="absolute left-1/3 -translate-x-1/2 bottom-2 w-44 h-20 rounded"
+              className="absolute left-36 -translate-x-1/2 bottom-6 w-36 h-20 rounded-tr-full"
               style={{
-                background: "radial-gradient(ellipse at center, rgba(140,140,140,0.95) 0%, rgba(110,110,110,0.85) 35%, rgba(80,80,80,0.6) 60%, transparent 100%)",
-                filter: "blur(15px)",
+                background:
+                  "radial-gradient(ellipse at center, rgba(140,140,140,0.95) 0%, rgba(110,110,110,0.85) 35%, rgba(80,80,80,0.6) 60%, transparent 100%)",
+                filter: "blur(10px)",
                 zIndex: 5,
                 pointerEvents: "none",
                 mixBlendMode: "normal",
@@ -33,7 +34,9 @@ const Card = ({ filteredProduct }) => {
               src={product.image1}
               alt={product.name}
               className={`w-[170px] object-contain transition-opacity duration-500 ease-in-out ${
-                hoveredId === product.id ? "opacity-0 h-[220px] z-20" : "opacity-100 h-full z-20"
+                hoveredId === product.id
+                  ? "opacity-0 h-[220px] z-10"
+                  : "opacity-100 h-full z-10"
               }`}
               style={{ backfaceVisibility: "hidden" }}
             />
@@ -43,7 +46,9 @@ const Card = ({ filteredProduct }) => {
               src={product.image2}
               alt={product.name}
               className={`absolute top-0 w-[170px] object-contain transition-opacity duration-500 ease-in-out ${
-                hoveredId === product.id ? "opacity-100 h-[220px] z-30" : "opacity-0 h-full z-30"
+                hoveredId === product.id
+                  ? "opacity-100 h-[220px] z-10"
+                  : "opacity-0 h-full z-10"
               }`}
               style={{ backfaceVisibility: "hidden" }}
             />
@@ -52,14 +57,14 @@ const Card = ({ filteredProduct }) => {
             <img
               src={product.hotItem}
               alt={product.name}
-              className="w-10 h-10 absolute z-20 top-4 left-4"
+              className="w-10 h-10 absolute z-10 top-4 left-4"
             />
           )}
           <div className="px-4 pt-1 pb-4">
             <h3 className="text-textWhite font-Lato font-bold xs:text-Paragraph3 lg:text-Paragraph4 xl:text-Paragraph2">
               {product.name}
             </h3>
-            <p className="text-textGray font-Lato font-normal xs:text-Paragraph6 text-Paragraph5">
+            <p className="text-textGray font-Lato font-normal xs:text-Paragraph6 text-Paragraph5 -mt-1">
               {product.category}
             </p>
             <div className="flex items-center gap-8 my-3">
@@ -67,10 +72,10 @@ const Card = ({ filteredProduct }) => {
                 {product.gram1}
               </p>
               <p className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
-                {product.gram1}
+                {product.gram2}
               </p>
             </div>
-            <AddToCartBtn price={product.price} />
+            <AddToCartBtn product={product} />
           </div>
         </div>
       ))}

@@ -8,7 +8,7 @@ const Certification = () => {
   const Certificates = [Certificate1, Certificate2, Certificate3, Certificate4];
 
   return (
-    <section className="overflow-hidden xs:pt-6 xs:pb-12 md:py-16 xl:pb-20">
+    <section className="overflow-hidden xs:pt-6 xs:pb-12 md:py-16 xl:pb-20 ">
       <h1
         className="font-Poppins font-bold text-textPrimary
                 xs:text-Heading4 xs:text-center 
@@ -25,10 +25,10 @@ const Certification = () => {
                 xl:w-7xl xl:gap-x-10"
       >
         {Certificates.map((Certi) => (
-          <div className="flex flex-col items-center-safe">
+          <div className="flex flex-col items-center-safe bg-white">
             <img 
                 src={Certi}
-                className="w-2/4 max-w-[212px]"  />
+                className="xs:w-[80%]  sm:w-2/4 max-w-[212px]"  />
           </div>
         ))}
       </div>

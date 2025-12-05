@@ -64,9 +64,10 @@ const ProductSection = () => {
       {/* Product Card Section */}
       <section
         className="grid gap-x-5 gap-y-8 mx-auto mt-16 px-5
-            xs:grid-cols-1 xs:w-[300px]
+            xs:grid-cols-1 xs:w-[300px] xs:px-0
             sm:grid-cols-2 sm:w-[95vw]
-            lg:grid-cols-3
+            md:w-[75vw]
+            lg:grid-cols-3 lg:w-[85vw]
             xl:grid-cols-4 xl:w-7xl"
       >
         <Card filteredProduct={visibleProducts} />

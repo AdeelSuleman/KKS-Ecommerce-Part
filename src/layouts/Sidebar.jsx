@@ -22,7 +22,7 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
       >
         {/* Header */}
         <div className="flex justify-between items-center">
-          <img src={Logo} alt="Logo" className="w-[120px]" />
+          <img src={Logo} alt="Logo" className="w-[140px] -ml-4" />
 
           <IoClose
             onClick={() => setIsOpen(false)}
@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
         </div>
 
         {/* Menus */}
-        <ul className="flex flex-col gap-6 mt-10 text-lg font-semibold">
+        <ul className="flex flex-col gap-6 mt-2 text-lg font-semibold">
           {Menus.map((menu, i) => (
             <div key={i}>
               <div

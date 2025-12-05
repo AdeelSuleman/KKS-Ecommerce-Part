@@ -25,10 +25,10 @@ const Hero = () => {
         >
           <h1
             className="font-Poppins font-bold 
-                xs:text-Heading4 xs:text-center sm:text-left
+                xs:text-Heading4 xs:text-left
                 md:text-Heading3 
                 lg:text-Heading3
-                xl:text-Heading2"
+                xl:text-Heading1"
           >
             Main Heading
           </h1>
@@ -44,7 +44,7 @@ const Hero = () => {
             nec.
           </p>
 
-          <div className="mt-5 flex flex-col items-center-safe sm:items-start">
+          <div className="mt-5 flex flex-col items-start">
             <ShopNowBtn />
           </div>
         </div>

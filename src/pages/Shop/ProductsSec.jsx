@@ -71,7 +71,7 @@ export const ProductsSec = () => {
       <section className="mt-8 flex flex-col lg:flex-row gap-6 mx-auto 
                     xs:w-[95vw] xs:px-4
                     lg:px-0
-                    xl:w-[1280px] 
+                    xl:w-7xl 
                     2xl:px-0 ">
         {/* Left Sidebar - Filters */}
         <ShopFilters
