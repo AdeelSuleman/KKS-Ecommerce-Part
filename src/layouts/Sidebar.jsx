@@ -2,6 +2,7 @@ import React from "react";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import ViewCart_Btn from "../components/ViewCart_Btn";
 
 const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }) => {
   return (
@@ -48,7 +49,7 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
                   {menu.nav_Title}
                   {/* Arrow icons: show only if there is a sub menu */}
                   {menu.sub_Menu && (
-                    <span className="ml-2 ">
+                    <span className="ml-2">
                       {openSubMenu === i ? (
                         // Arrow Up SVG
                         <TiArrowSortedUp />
@@ -79,6 +80,10 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
             </div>
           ))}
         </ul>
+
+
+        {/* View Cart Button */}
+        <ViewCart_Btn />
       </div>
     </>
   );

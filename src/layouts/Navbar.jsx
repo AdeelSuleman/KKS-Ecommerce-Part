@@ -48,7 +48,7 @@ const Navbar = () => {
         <div
           className={` ${
             isSticky
-              ? "xs:w-[140px] lg:w-40"
+              ? "xs:w-[120px] lg:w-[140px]"
               : "xs:w-40 lg:w-[180px] xl:w-[180px]"
           }`}
         >
@@ -136,7 +136,7 @@ const Navbar = () => {
               </div>
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative flex justify-end items-center gap-2 text-textPrimary font-Lato cursor-pointer text-Paragraph8 xl:text-Paragraph7"
+                className="relative bg-limr flex justify-end items-center gap-2 text-textPrimary font-Lato cursor-pointer text-Paragraph8 xl:text-Paragraph7"
               >
                 <IoMdCart className="text-Paragraph4" />
                 <p className=" font-semibold">Cart</p>
@@ -151,7 +151,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu icon */}
-          <div className="lg:hidden flex flex-col justify-center-safe items-end-safe gap-5">
+          <div className="lg:hidden flex flex-col justify-center-safe items-end-safe gap-3">
             <RiMenu3Line
               onClick={() => setIsOpen(true)}
               className="text-2xl lg:hidden cursor-pointer"

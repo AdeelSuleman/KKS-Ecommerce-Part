@@ -21,7 +21,7 @@ const FeaturedSection = () => {
       >
         FEATURED <br className="md:hidden" /> PRODUCTS
       </h1>
-      <div className="mx-auto mt-20 xs:w-[95vw] xl:w-7xl px-5">
+      <div className="mx-auto xs:mt-8 lg:mt-10 xs:w-[95vw] xl:w-7xl px-5">
         <Slider products={featuredProducts} />
       </div>
     </section>

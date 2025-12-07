@@ -68,7 +68,7 @@ const ProductSection = () => {
             sm:grid-cols-2 sm:w-[95vw]
             md:w-[75vw]
             lg:grid-cols-3 lg:w-[85vw]
-            xl:grid-cols-4 xl:w-7xl"
+            xl:grid-cols-4 xl:w-7xl xl:px-5"
       >
         <Card filteredProduct={visibleProducts} />
       </section>

@@ -24,8 +24,8 @@ const Certification = () => {
                 sm:grid-cols-2  lg:grid-cols-4 lg:gap-x-4
                 xl:w-7xl xl:gap-x-10"
       >
-        {Certificates.map((Certi) => (
-          <div className="flex flex-col items-center-safe bg-white">
+        {Certificates.map((Certi, i) => (
+          <div key={i} className="flex flex-col items-center-safe bg-white">
             <img 
                 src={Certi}
                 className="xs:w-[80%]  sm:w-2/4 max-w-[212px]"  />

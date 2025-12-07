@@ -24,7 +24,7 @@ const ShopFilters = ({
   ];
 
   // Weight options
-  const weightOptions = ["120g", "250g", "400g", "500g", "1kg", "5kg"];
+  const weightOptions = ["120g", "250g", "400g", "500g", "1000g", "5kg"];
 
   // Handle category checkbox
   const handleCategoryChange = (category) => {
@@ -50,10 +50,10 @@ const ShopFilters = ({
   };
 
   return (
-    <div className="lg:w-1/4">
+    <div className="w-full lg:pr-7 xl:pr-22 ">
       <div className="bg-transparent xs:border lg:border-0 border-textWhite rounded-lg p-5 2xl:p-3">
         {/* Sort By Section */}
-        <div className="mb-6 pb-6 border-b border-textWhite">
+        <div className="mb-6 pb-6 relative">
           <h3 className="text-textSecondary font-Lato font-bold text-Paragraph5 mb-3">
             Sort By:
           </h3>
@@ -92,10 +92,15 @@ const ShopFilters = ({
               </div>
             )}
           </div>
+
+          {/* Border  */}
+          <div className="bg-textWhite absolute 
+                lg:w-[270px] lg:h-[0.8px] bottom-0 -left-14
+                xl:w-[280px]"></div>
         </div>
 
         {/* Category Section */}
-        <div className="mb-6 pb-6 border-b border-textWhite">
+        <div className="mb-6 pb-6 relative">
           <h3 className="text-textSecondary font-Lato font-bold text-Paragraph5 mb-3">
             Category:
           </h3>
@@ -125,6 +130,11 @@ const ShopFilters = ({
               </label>
             ))}
           </div>
+
+          {/* Border  */}
+          <div className="bg-textWhite absolute 
+                lg:w-[270px] lg:h-[0.8px] bottom-0 -left-14
+                xl:w-[280px]"></div>
         </div>
 
         {/* Weight Section */}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { FiTrash2 } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import ViewCart_Btn from "./ViewCart_Btn";
 
 const Cart_SideBar = ({ isOpen, onClose }) => {
   const { cart, removeFromCart, removeOneFromCart, addToCart } = useCart();
@@ -160,9 +161,9 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
               <span>Subtotal</span>
               <span>Rs {subtotal}</span>
             </div>
-            <button className="w-full bg-orange-600 text-white py-3 rounded">
-              View Cart
-            </button>
+            
+            {/* View Cart Button */}
+            <ViewCart_Btn/>
           </div>
         </div>
       </aside>

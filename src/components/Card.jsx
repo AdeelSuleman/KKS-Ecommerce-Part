@@ -68,9 +68,9 @@ const Card = ({ filteredProduct }) => {
               {product.category}
             </p>
             <div className="flex items-center gap-8 my-3">
-              <p className="text-textWhite font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
+              {/* <p className="text-textWhite font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
                 {product.gram1}
-              </p>
+              </p> */}
               <p className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
                 {product.gram2}
               </p>

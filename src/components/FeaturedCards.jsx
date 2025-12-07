@@ -40,7 +40,7 @@ const FeaturedCards = ({ product, products: productsProp, maxVisible = 10 }) => 
             </div>
           </div>
 
-          <div className=" w-full p-4 flex flex-col items-center-safe">
+          <div className=" w-full p-4 flex flex-col items-center-safe -mt-8">
             <h3 className="text-textPrimary font-Lato font-bold text-center mb-6 xs:text-Paragraph4 md:text-Paragraph6 lg:text-Paragraph4 text-Paragraph3">
               {item.name}
             </h3>
