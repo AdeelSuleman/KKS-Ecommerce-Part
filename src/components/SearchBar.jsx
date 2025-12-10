@@ -78,16 +78,16 @@ const SearchBar = ({
                           }`}
                           >
                             <img
-                              src={p.image1}
-                              alt={p.name}
+                              src={p.p_image}
+                              alt={p.p_name}
                               className="xs:w-8 xs:h-8 sm:w-14 sm:h-14 object-contain rounded"
                             />
                             <div className="flex-1">
                               <div className="font-semibold font-Montserrat text-Paragraph8 text-textPrimary">
-                                {p.name}
+                                {p.p_name}
                               </div>
                               <div className="text-Paragraph8 font-Montserrat text-textGray">
-                                Rs {p.price}.00
+                                Rs {p.p_price}.00
                               </div>
                             </div>
                           </li>
@@ -106,8 +106,8 @@ const SearchBar = ({
                     {hoveredProduct ? (
                       <>
                         <img
-                          src={hoveredProduct.image1}
-                          alt={hoveredProduct.name}
+                          src={hoveredProduct.p_image}
+                          alt={hoveredProduct.p_name}
                           className="mx-auto xs:w-40 xs:h-40 w-full h-full object-contain mb-[-60px]"
                         />
                         <div className="w-full bg-DropDownBgHover2 rounded-md shadow-md px-4 pb-4 pt-16 text-center">
@@ -115,7 +115,7 @@ const SearchBar = ({
                           {hoveredProduct.name}
                         </h3>
                         <p className="text-Paragraph8 font-Montserrat text-textGray mb-4">
-                          Rs {hoveredProduct.price}.00
+                          Rs {hoveredProduct.p_price}.00
                         </p>
                         <button className="px-5 py-2 bg-btnRed text-textSecondary rounded-md font-Montserrat font-semibold uppercase text-Paragraph8 hover:bg-red-700 transition-colors">
                           VIEW PRODUCT

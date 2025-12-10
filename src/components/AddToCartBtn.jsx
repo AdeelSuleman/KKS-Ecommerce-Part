@@ -24,7 +24,7 @@ const AddToCartBtn = ({ product }) => {
         <IoMdCart className="" />
         <span className="">Add to cart</span>
       </div>
-      <p className="">Rs {product?.price}.00</p>
+      <p className="">Rs {product?.p_price}.00</p>
     </button>
   );
 };

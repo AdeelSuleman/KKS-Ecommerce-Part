@@ -65,7 +65,7 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
   };
 
   const subtotal = uniqueItems.reduce(
-    (sum, item) => sum + (item.price || 0) * (item.qty || 1),
+    (sum, item) => sum + (item.p_price || 0) * (item.qty || 1),
     0
   );
 
@@ -112,8 +112,8 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
               >
                 <div className="w-16 h-16 shrink-0">
                   <img
-                    src={item.image1 || item.image}
-                    alt={item.name}
+                    src={item.p_image || item.p_image}
+                    alt={item.p_name}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -121,12 +121,12 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="font-bold">{item.name}</p>
+                      <p className="font-bold">{item.p_name}</p>
                       <p className="text-sm text-gray-500">
-                        {item.category || item.description}
+                        {item.p_category || item.p_description}
                       </p>
                     </div>
-                    <div className="text-sm font-semibold">Rs {item.price}</div>
+                    <div className="text-sm font-semibold">Rs {item.p_price}</div>
                   </div>
 
                   <div className="mt-3 flex items-center gap-3">

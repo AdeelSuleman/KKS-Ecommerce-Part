@@ -11,7 +11,7 @@ const Hero = () => {
     >
       <div
         className="mx-auto px-4 
-          xs:w-[95vw] xs:gap-4
+           xs:gap-4
           flex flex-wrap
           md:flex-nowrap justify-between items-center
           xl:w-7xl xl:gap-10 "
