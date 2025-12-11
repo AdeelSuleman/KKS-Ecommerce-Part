@@ -48,12 +48,12 @@ const ProductsImages = ({ images, value, setValue }) => {
       </div>
 
       {/* THUMBNAILS */}
-      <ul className=" gap-4 py-4 xs:mt-2 mt-4 grid grid-cols-4 mx-auto">
+      <ul className=" gap-4 py-4 xs:mt-2 mt-4 grid grid-cols-4 mx-auto sm:w-[400px] lg:w-full">
         {images.map((img, index) => (
           <li
             key={index}
             onClick={() => setValue(index)}
-            className={`cursor-pointer  border p-1 bg-linear-to-tr from-gray-200 to-white transition-all
+            className={`cursor-pointer border-2 p-1 bg-linear-to-tr from-gray-200 to-white transition-all
                 ${index === value ? "border-yellow-500 opacity-70" : "border-gray-300"}`}
           >
             <img src={img} alt="thumb" className="w-full sm:h-20 xl:h-[125px] object-contain" />

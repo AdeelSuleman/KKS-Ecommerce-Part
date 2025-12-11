@@ -15,13 +15,13 @@ const Product_Details = () => {
       style={{ backgroundImage: `url(${HeroBanner})` }}
       className="bg-cover bg-center bg-no-repeat py-10 lg:py-20 flex justify-center relative"
     >
-      <div className="xs:w-[95vw] xl:w-7xl lg:px-6 relative z-10">
+      <div className="xs:w-[95vw] xl:w-7xl px-4 lg:px-6 relative z-10">
         <HeroProduct product={product} />
 
-        <h1 className="text-Heading4 font-Poppins font-bold tracking-tight leading-tight text-textWhite mt-5">Related Products</h1>
+        <h1 className="text-Heading4 font-Poppins font-bold tracking-tight leading-tight text-textWhite xs:mt-8">Related Products</h1>
 
-        <div className="">
-            {/* <RelatedProduct_Slider /> */}
+        <div className="mx-auto xs:mt-8 xs:w-[300px] sm:w-full md:w-[85%] sm:mt-10 lg:w-full xl:mt-14"> 
+            <RelatedProduct_Slider category={product.p_category} currentId={product.id}  />
         </div>
       </div>
 

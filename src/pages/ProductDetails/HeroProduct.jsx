@@ -31,7 +31,15 @@ const HeroProduct = ({ product }) => {
   const qty = cartItem ? cartItem.qty : 0;
 
   // Increase / Decrease Handlers
-  const increase = () => addToCart(product);
+  const buildCartItem = () => {
+  return {
+    ...product,
+    selectedWeight,
+    packaging,
+    _cartItemId: `${product.id}-${selectedWeight}-${packaging}-${Math.random()}`, 
+  };
+};
+  const increase = () => addToCart(buildCartItem());
   const decrease = () => removeOneFromCart(product.id);
 
   return (
@@ -158,7 +166,7 @@ const HeroProduct = ({ product }) => {
 
           {/* ADD TO CART BUTTON — Always Visible */}
           <button
-            onClick={() => addToCart(product)}
+            onClick={() => addToCart(buildCartItem())}
             className="bg-btnPrimary flex justify-between items-center w-fit gap-6 sm:gap-2 md:gap-8 lg:gap-4 px-5 py-1.5 rounded-lg
         text-textWhite font-Lato font-bold transition-all duration-300 cursor-pointer
         hover:bg-btnPrimaryHover xs:text-Paragraph7 lg:text-Paragraph8 xl:text-Paragraph6

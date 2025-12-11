@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`w-full flex flex-col justify-center-safe items-center-safe z-20 transition-all duration-200 ${
+      className={`w-full flex flex-col justify-center-safe items-center-safe z-30 transition-all duration-200 ${
         isSticky
           ? "fixed top-0 py-2 shadow-md bg-Primarybg"
           : "relative py-3 bg-Primarybg"
