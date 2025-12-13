@@ -21,7 +21,7 @@ const AddToCartBtn = ({ product }) => {
     <button
       type="button"
       onClick={handleClick}
-      className="bg-btnPrimary flex justify-between items-center w-full gap-6 sm:gap-2 md:gap-8 lg:gap-4 px-8 py-1.5 rounded-full
+      className="bg-btnPrimary flex justify-between items-center w-full gap-6 xs:px-6 sm:gap-2 md:gap-3 md:px-5 lg:gap-3 lg:px-6 xl:px-8 py-1.5 rounded-full
         text-textWhite font-Lato font-bold transition-all duration-300 cursor-pointer
         hover:bg-btnPrimaryHover"
     >

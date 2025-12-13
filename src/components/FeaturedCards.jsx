@@ -33,7 +33,7 @@ const FeaturedCards = ({ product, products: productsProp, maxVisible = 10 }) => 
                 src={item.p_images[0]}
                 alt={item.p_name}
                 className={`absolute left-1/2 -translate-x-1/2 top-0 max-w-[220px] w-full h-60 object-contain mx-auto transition-opacity duration-500 ease-in-out ${
-                  hoveredId === item.id ? "opacity-100" : "opacity-0"
+                  hoveredId === item.id ? "opacity-100  scale-110" : "opacity-0 "
                 }`}
                 style={{ backfaceVisibility: "hidden" }}
               />

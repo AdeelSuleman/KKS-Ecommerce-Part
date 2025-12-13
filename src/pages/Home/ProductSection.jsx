@@ -11,7 +11,7 @@ const ProductSection = () => {
   const filteredProducts =
     selectedCategory === "All"
       ? products
-      : products.filter((product) => product.category === selectedCategory);
+      : products.filter((product) => product.p_category === selectedCategory);
 
   // Always show 2 rows: 8 products for xl (4 columns x 2 rows)
   const visibleProducts = filteredProducts.slice(0, 8);
@@ -20,7 +20,7 @@ const ProductSection = () => {
   return (
     <section
       style={{ backgroundImage: `url(${Banner})` }}
-      className="bg-cover bg-center bg-no-repeat xs:py-10 md::py-16 xl:py-20 border-0"
+      className="bg-cover bg-center bg-no-repeat xs:py-10 md:py-16 xl:py-20 border-0"
     >
     <div className="px-6 xl:px-4">
       <h1
@@ -46,18 +46,18 @@ const ProductSection = () => {
       {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-4 xs:w-[92vw] sm:w-[70vw] lg:w-full mx-auto mt-12">
         <CategoryBtn
-          name="All"
-          isActive={selectedCategory === "All"}
-          onClick={setSelectedCategory}
-        />
+  name="All"
+  isActive={selectedCategory === "All"}
+  onClick={setSelectedCategory} // <-- ab CategoryBtn me name pass hoga
+/>
 
         {categories.map((cat) => (
           <CategoryBtn
-            key={cat.id}
-            name={cat.name}
-            isActive={selectedCategory === cat.name}
-            onClick={setSelectedCategory}
-          />
+    key={cat.id}
+    name={cat.name}
+    isActive={selectedCategory === cat.name}
+    onClick={setSelectedCategory} // <-- CategoryBtn me name pass hoga
+  />
         ))}
       </div>
 

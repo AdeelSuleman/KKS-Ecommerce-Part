@@ -7,14 +7,23 @@ import Delivery3 from "../../assets/D3.png";
 import { IoMdCart } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
 import { GrFormSubtract } from "react-icons/gr";
+import { FaCheck } from "react-icons/fa";
 
 const HeroProduct = ({ product }) => {
   const [value, setValue] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const { cart, addToCart, removeOneFromCart, removeFromCart } = useCart();
 
   //   Weight & Packaging State
   const [selectedWeight, setSelectedWeight] = useState(product.p_gram[0]);
   const [packaging, setPackaging] = useState("Box");
+
+// When user selects weight → reset image to that index
+  const handleWeightChange = (w, index) => {
+    setSelectedWeight(w);
+    setValue(index); // <-- RESET IMAGE ACCORDING TO WEIGHT
+  };
+
 
   // --- BUILD UNIQUE CART ITEMS TO GET CURRENT PRODUCT QTY ---
   const uniqueItems = React.useMemo(() => {
@@ -32,15 +41,19 @@ const HeroProduct = ({ product }) => {
 
   // Increase / Decrease Handlers
   const buildCartItem = () => {
-  return {
-    ...product,
-    selectedWeight,
-    packaging,
-    _cartItemId: `${product.id}-${selectedWeight}-${packaging}-${Math.random()}`, 
+    return {
+      ...product,
+      selectedWeight,
+      packaging,
+      // _cartItemId: `${product.id}-${selectedWeight}-${packaging}-${Math.random()}`,
+       _cartItemId: `${product.id}-${selectedWeight}-${packaging}`,
+    };
   };
-};
   const increase = () => addToCart(buildCartItem());
-  const decrease = () => removeOneFromCart(product.id);
+  
+  const decrease = () => {
+  removeOneFromCart(`${product.id}-${selectedWeight}-${packaging}`);
+};
 
   return (
     <section className="grid xs:grid-cols-1 lg:grid-cols-2 items-start gap-10 xl:gap-14">
@@ -52,7 +65,7 @@ const HeroProduct = ({ product }) => {
           setValue={setValue}
         />
 
-         {/* Divider */}
+        {/* Divider */}
         <div className="bg-textGray w-full h-px xs:mt-2 lg:mt-12"></div>
 
       </div>
@@ -82,13 +95,13 @@ const HeroProduct = ({ product }) => {
             {product.p_gram.map((w, i) => (
               <button
                 key={i}
-                onClick={() => setSelectedWeight(w)}
+                // onClick={() => setSelectedWeight(w)}
+                onClick={() => handleWeightChange(w, i)}
                 className={`px-4 py-1 rounded-md xs:text-Paragraph7 lg:text-Paragraph6 tracking-tight leading-tight font-Lato transition cursor-pointer
-          ${
-            selectedWeight === w
-              ? "bg-[#E64520] text-white"
-              : "text-white hover:text-[#E64520]"
-          }`}
+          ${selectedWeight === w
+                    ? "bg-[#E64520] text-white"
+                    : "text-white hover:text-[#E64520]"
+                  }`}
               >
                 {w}
               </button>
@@ -109,14 +122,19 @@ const HeroProduct = ({ product }) => {
               onClick={() => setPackaging("Box")}
             >
               <span
-                className={`w-5 h-5 rounded border 
-          ${packaging === "Box" ? "bg-white" : "bg-transparent border-white"}
+                className={`w-5 h-5 rounded border relative flex items-center justify-center
+          ${packaging === "Box" ? "bg-white text-black" : "bg-transparent border-white"}
         `}
-              ></span>
+              >
+                {packaging === "Box" && (
+                  <FaCheck className="text-Paragraph9" />
+                )}
+              </span>
+
               <span
                 className={`xs:text-Paragraph7 xl:text-Paragraph6 font-Lato 
-        ${packaging === "Box" ? "text-white" : "text-gray-300"}
-      `}
+          ${packaging === "Box" ? "text-white" : "text-gray-300"}
+        `}
               >
                 Box
               </span>
@@ -128,14 +146,19 @@ const HeroProduct = ({ product }) => {
               onClick={() => setPackaging("Pouch")}
             >
               <span
-                className={`w-5 h-5 rounded border 
-          ${packaging === "Pouch" ? "bg-white" : "bg-transparent border-white"}
+                className={`w-5 h-5 rounded border relative flex items-center justify-center
+          ${packaging === "Pouch" ? "bg-white text-black" : "bg-transparent border-white"}
         `}
-              ></span>
+              >
+                {packaging === "Pouch" && (
+                  <FaCheck className="text-Paragraph9" />
+                )}
+              </span>
+
               <span
                 className={`xs:text-Paragraph7 xl:text-Paragraph6 font-Lato 
-        ${packaging === "Pouch" ? "text-white" : "text-gray-300"}
-      `}
+          ${packaging === "Pouch" ? "text-white" : "text-gray-300"}
+        `}
               >
                 Pouch
               </span>
@@ -154,7 +177,10 @@ const HeroProduct = ({ product }) => {
               <GrFormSubtract size={20} />
             </button>
 
-            <div className="text-white font-bold px-2">{qty}</div>
+            <div className="text-white font-bold px-2">
+              {/* {qty} */}
+              {qty === 0 ? 1 : qty}
+              </div>
 
             <button
               onClick={increase}
@@ -180,10 +206,17 @@ const HeroProduct = ({ product }) => {
         </div>
 
         {/* Delivery Icons  */}
-        <div className="grid grid-cols-3 items-center justify-between gap-6 xs:mt-6 lg:mt-8 xl:mt-2 xs:w-[200px] lg:w-[250px]">
-          <img src={Delivery1} alt="" className="xs:w-14 xl:w-28 xl:h-24 object-contain mx-auto" />
-          <img src={Delivery2} alt="" className="xs:w-10 xl:w-20 xl:h-14 object-contain mx-auto" />
-          <img src={Delivery3} alt="" className="xs:w-14 xl:w-28 xl:h-28 object-contain" />
+        <div className="grid grid-cols-3 items-center justify-between xs:gap-0 gap-6 xs:mt-6 lg:mt-8 xl:mt-2 xs:w-[200px] lg:w-[250px]">
+          <div className="flex flex-col items-center-safe">
+            <img src={Delivery1} alt="" className="xs:w-10 xs:h-12 xl:w-20 object-contain mx-auto" />
+          </div>
+          <div className="flex flex-col items-center-safe">
+            <img src={Delivery2} alt="" className="xs:w-9 xs:h-8 xl:w-20 xl:h-12 object-contain mx-auto" />
+          </div>
+          <div className="flex flex-col items-center-safe">
+            <img src={Delivery3} alt="" className="xs:w-16 xs:h-10 xl:w-28 xl:h-22 object-contain mx-auto" />
+          </div>
+
         </div>
 
         {/* Divider */}
@@ -210,9 +243,9 @@ const HeroProduct = ({ product }) => {
           <h2 className="xs:text-Paragraph2 lg:text-Paragraph1 font-bold font-Poppins text-textSecondary">
             Packaging & Delivery
           </h2>
-          <ul className="text-textWhite space-y-2 mt-2">
+          <ul className="text-textWhite space-y-1 mt-2">
             {product.p_packaging.map((line, i) => (
-              <li key={i}>• {line}</li>
+              <li key={i}> {line}</li>
             ))}
           </ul>
         </div>

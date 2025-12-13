@@ -1,10 +1,10 @@
 export const Menus = [
     { nav_Title: "Home", nav_Url: "/" },
-    { nav_Title: "About", nav_Url: "/about" },
+    // { nav_Title: "About", nav_Url: "/about" },
   
     {
       nav_Title: "Our Products",
-      nav_Url: "/product",
+      nav_Url: "/shop",
       sub_Menu: [
         { nav_SubTitle: "Plain Spices", nav_SubUrl: "/plain-spices" },
         { nav_SubTitle: "Sauces", nav_SubUrl: "/sauces" },
@@ -16,6 +16,5 @@ export const Menus = [
     },
   
     { nav_Title: "Shop", nav_Url: "/shop" },
-    { nav_Title: "Contact Us", nav_Url: "/contact-us" },
+    { nav_Title: "Contact Us", nav_Url: "https://wa.me/+923369917755" },
   ];
-  

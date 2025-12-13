@@ -55,7 +55,7 @@ const RelatedProduct_Slider = ({ category, currentId }) => {
     >
       {filtered.map((p) => (
         <SwiperSlide key={p.id} >
-          <div className="w-full">
+          <div className="w-full py-4">
           <Card filteredProduct={[p]} />
           </div>
         </SwiperSlide>

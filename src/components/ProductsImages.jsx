@@ -54,7 +54,7 @@ const ProductsImages = ({ images, value, setValue }) => {
             key={index}
             onClick={() => setValue(index)}
             className={`cursor-pointer border-2 p-1 bg-linear-to-tr from-gray-200 to-white transition-all
-                ${index === value ? "border-yellow-500 opacity-70" : "border-gray-300"}`}
+                ${index === value ? "border-textSecondary opacity-50" : "border-gray-300"}`}
           >
             <img src={img} alt="thumb" className="w-full sm:h-20 xl:h-[125px] object-contain" />
           </li>

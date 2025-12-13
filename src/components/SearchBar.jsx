@@ -1,134 +1,178 @@
 // components/SearchBar.jsx
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import { categories, products } from "../data/products";
+import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({
-  selectedCategory,
-  setSelectedCategory,
-  categoryDropdownOpen,
-  setCategoryDropdownOpen,
-  hoveredProduct,
-  setHoveredProduct,
-  searchQuery,
-  setSearchQuery,
-}) => {
-  // Filter products by selected category
+const SearchBar = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [hoveredProduct, setHoveredProduct] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const navigate = useNavigate();
+  const wrapperRef = useRef(null);
+
+  /* ---------------- FILTER PRODUCTS ---------------- */
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === "All Categories") return products;
-    return products.filter((p) => p.category === selectedCategory);
-  }, [selectedCategory]);
+    let data =
+      selectedCategory === "All Categories"
+        ? products
+        : products.filter((p) => p.p_category === selectedCategory);
+
+    if (searchQuery.trim()) {
+      data = data.filter((p) =>
+        p.p_name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    return data;
+  }, [selectedCategory, searchQuery]);
+
+  /* ---------------- OUTSIDE CLICK ---------------- */
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setIsCategoryOpen(false);
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const openProductDetails = (id) => {
+    navigate(`/product/${id}`);
+    setIsSearchOpen(false);
+  };
 
   return (
-    <div className="relative flex-1 w-full xl:w-[550px]">
+    <div ref={wrapperRef} className="relative flex-1 w-full xl:w-[550px]">
       <div className="flex items-center w-full bg-white border border-DropDownBorder rounded-md shadow-sm">
-        
-        {/* Category Dropdown Button */}
+
+        {/* ================= CATEGORY BUTTON ================= */}
         <div className="relative">
           <button
-            className="flex items-center gap-1 xs:px-2 sm:px-6 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsCategoryOpen((s) => !s);
+              setIsSearchOpen(false);
+            }}
+            className="flex items-center gap-1 xs:px-2 sm:px-6 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md"
           >
-            <span className="text-gray-500 font-Lato">{selectedCategory}</span>
-            <IoChevronDown className="text-xs text-gray-500" />
+            <span>{selectedCategory}</span>
+            <IoChevronDown className="text-xs" />
           </button>
+
+          {isCategoryOpen && (
+            <ul className="absolute top-full left-0 w-full bg-white border border-DropDownBorder rounded-md shadow z-20 overflow-hidden">
+              {categories.map((cat) => (
+                <li
+                  key={cat.id}
+                  onClick={() => {
+                    setSelectedCategory(cat.name);
+                    setIsCategoryOpen(false);
+                    setIsSearchOpen(true);
+                  }}
+                  className="py-2 px-3 w-full text-Paragraph8 font-Montserrat font-semibold border border-transparent cursor-pointer hover:bg-DropDownBgHover hover:border-t-DropDownBorder hover:border-b-DropDownBorder"
+                >
+                  {cat.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        {/* Vertical Divider */}
+        {/* Divider */}
         <div className="w-px h-6 bg-gray-300"></div>
 
-        {/* Search Input */}
+        {/* ================= SEARCH INPUT ================= */}
         <div className="flex-1 relative">
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => setCategoryDropdownOpen(true)}
-            onClick={() => setCategoryDropdownOpen(true)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsSearchOpen(true);
+              setIsCategoryOpen(false);
+            }}
             placeholder="Search for items..."
-            className="w-full py-2 px-4 text-sm text-textGray font-Lato placeholder:font-Lato placeholder-textGray focus:outline-none rounded-r-md"
+            className="w-full py-2 px-4 text-sm focus:outline-none rounded-r-md"
           />
 
-          {/* Dropdown Box - Now attached to search input */}
-          {categoryDropdownOpen && (
-            <div
-              className="absolute top-full bg-DropDownBg rounded-bl-2xl rounded-br-2xl shadow-md border border-DropDownBorder shadow-DropDownBorder z-50 overflow-hidden
-                    xs:left-[-135px] xs:w-[calc(100%+135px)]
-                    sm:left-0 sm:w-full
-                    md:w-full
-                    lg:w-full
-                    xl:w-full
-                    2xl:w-full"
-              onMouseEnter={() => setCategoryDropdownOpen(true)}
-              onMouseLeave={() => setCategoryDropdownOpen(false)}
-            >
+          {/* ================= PRODUCT DROPDOWN ================= */}
+          {isSearchOpen && (
+            <div className="absolute top-full bg-DropDownBg rounded-bl-2xl rounded-br-2xl shadow-md border border-DropDownBorder z-10 overflow-hidden w-full">
               <div className="flex w-full">
-                {/* Left Product List */}
-                <div className="xs:w-[120px] sm:w-[180px] bg-DropDownBg border-r border-DropDownBorder overflow-y-auto">
+
+                {/* LEFT PRODUCT LIST */}
+                <div className="xs:w-full xs:h-[350px] md:w-40 bg-DropDownBg border-r border-DropDownBorder overflow-y-auto">
                   <ul>
-                    {filteredProducts.length > 0 ? (
-                      filteredProducts
-                        .slice(0, 5)
-                        .map((p) => (
-                          <li
-                            key={p.id}
-                            onMouseEnter={() => setHoveredProduct(p)}
-                            className={`flex items-center gap-3 py-3 px-2 border-t border-b border-0 border-transparent hover:bg-DropDownBgHover cursor-pointer 
-                          hover:border-DropDownBorder hover:border-t hover:border-b hover:border-0
-                          ${
-                            hoveredProduct?.id === p.id ? "bg-gray-50" : ""
-                          }`}
-                          >
-                            <img
-                              src={p.p_image}
-                              alt={p.p_name}
-                              className="xs:w-8 xs:h-8 sm:w-14 sm:h-14 object-contain rounded"
-                            />
-                            <div className="flex-1">
-                              <div className="font-semibold font-Montserrat text-Paragraph8 text-textPrimary">
-                                {p.p_name}
-                              </div>
-                              <div className="text-Paragraph8 font-Montserrat text-textGray">
-                                Rs {p.p_price}.00
-                              </div>
-                            </div>
-                          </li>
-                        ))
+                    {filteredProducts.length ? (
+                      filteredProducts.slice(0).map((p) => (
+                        <li
+                          key={p.id}
+                          onClick={() => {
+                            if (window.innerWidth < 768)
+                              openProductDetails(p.id);
+                          }}
+                          onMouseEnter={() => setHoveredProduct(p)}
+                          className="flex items-center gap-3 py-3 px-2 cursor-pointer hover:bg-DropDownBgHover"
+                        >
+                          <img
+                            src={p.p_image}
+                            className="xs:w-16 xs:h-16 sm:w-14 sm:h-14 object-contain rounded"
+                          />
+                          <div className="flex-1">
+                            <p className="font-semibold font-Montserrat text-Paragraph8 text-textPrimary">{p.p_name}</p>
+                            <p className="text-Paragraph8 font-Montserrat text-textGray">
+                              Rs {p.p_price}
+                            </p>
+                          </div>
+                        </li>
+                      ))
                     ) : (
-                      <li className="py-4 px-4 text-sm text-textGray text-center">
+                      <li className="p-4 text-center text-gray-400">
                         No products found
                       </li>
                     )}
                   </ul>
                 </div>
 
-                {/* Right Preview Box */}
-                <div className="flex-1 xs:w-[200px] xs:p-3 sm:p-5 sm:w-[90%] flex items-center justify-center ">
-                  <div className="w-full">
-                    {hoveredProduct ? (
-                      <>
-                        <img
-                          src={hoveredProduct.p_image}
-                          alt={hoveredProduct.p_name}
-                          className="mx-auto xs:w-40 xs:h-40 w-full h-full object-contain mb-[-60px]"
-                        />
-                        <div className="w-full bg-DropDownBgHover2 rounded-md shadow-md px-4 pb-4 pt-16 text-center">
-                        <h3 className="font-bold font-Montserrat text-Paragraph7 text-textPrimary mb-2">
-                          {hoveredProduct.name}
-                        </h3>
-                        <p className="text-Paragraph8 font-Montserrat text-textGray mb-4">
-                          Rs {hoveredProduct.p_price}.00
-                        </p>
-                        <button className="px-5 py-2 bg-btnRed text-textSecondary rounded-md font-Montserrat font-semibold uppercase text-Paragraph8 hover:bg-red-700 transition-colors">
-                          VIEW PRODUCT
-                        </button>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-textGray py-8">
-                        Select a product to preview
+                {/* RIGHT PREVIEW (DESKTOP) */}
+                <div className="flex-1 xs:hidden md:flex items-center justify-center p-3">
+                  {hoveredProduct ? (
+                    <div className="w-full">
+                      <img
+                        src={hoveredProduct.p_image}
+                        className="mx-auto w-full h-40 object-contain -mb-10"
+                      />
+
+                      <div className="w-full bg-DropDownBgHover2 rounded-md shadow-md px-4 pb-4 pt-16 text-center">
+                      <h3 className="font-bold font-Montserrat text-Paragraph7 text-textPrimary mb-2">
+                        {hoveredProduct.p_name}
+                      </h3>
+                      <p className="text-Paragraph8 font-Montserrat text-textGray mb-4">
+                        Rs {hoveredProduct.p_price}
+                      </p>
+                      <button
+                        onClick={() =>
+                          openProductDetails(hoveredProduct.id)
+                        }
+                        className="px-5 py-2 bg-btnRed cursor-pointer text-textSecondary rounded-md font-Montserrat font-semibold uppercase text-Paragraph8 hover:bg-red-700 transition-colors"
+                      >
+                        VIEW PRODUCT
+                      </button>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <p className="text-gray-400">
+                      Hover product to preview
+                    </p>
+                  )}
                 </div>
+
               </div>
             </div>
           )}

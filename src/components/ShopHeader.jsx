@@ -35,7 +35,9 @@ const ShopHeader = ({
         THE KIND YOU WONT BE ABLE TO RESIST
       </h2>
 
-      <div className="mt-5 ">
+      <div className="mt-5">
+
+      <div className="xl:ml-8 2xl:-ml-16">
         {/* Current Page box */}
         <div className="flex justify-between items-center w-fit gap-3 xs:text-Paragraph7 xl:text-Paragraph6">
           <FiHome className="text-textSecondary" />
@@ -63,6 +65,7 @@ const ShopHeader = ({
             <span className="">Filter</span>
             <FaFilter />
           </button>
+        </div>
         </div>
       </div>
 

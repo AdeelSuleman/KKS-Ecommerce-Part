@@ -17,10 +17,13 @@ const ShopFilters = ({
   // Category options
   const categoryOptions = [
     "All",
-    "Plain Spice",
-    "Recipe Mix",
+    "Recipe Mixes",
+    "Plain Spices",
     "Desserts",
-    "Pickle",
+    "Pickles",
+    "Sauces",
+    "Pastes",
+    "Miscellaneous",
   ];
 
   // Weight options
@@ -96,7 +99,8 @@ const ShopFilters = ({
           {/* Border  */}
           <div className="bg-textWhite absolute 
                 lg:w-[270px] lg:h-[0.8px] bottom-0 -left-14
-                xl:w-[280px]"></div>
+                xl:w-[280px]
+                2xl:w-[320px] 2xl:-left-20"></div>
         </div>
 
         {/* Category Section */}
@@ -134,7 +138,8 @@ const ShopFilters = ({
           {/* Border  */}
           <div className="bg-textWhite absolute 
                 lg:w-[270px] lg:h-[0.8px] bottom-0 -left-14
-                xl:w-[280px]"></div>
+                xl:w-[280px]
+                2xl:w-[320px] 2xl:-left-20"></div>
         </div>
 
         {/* Weight Section */}

@@ -7,7 +7,7 @@ import ShopHeader from "../../components/ShopHeader";
 
 export const ProductsSec = () => {
   // start with no restrictive filters so all products show by default
-  const [sortBy, setSortBy] = useState("High to Low");
+  const [sortBy, setSortBy] = useState("Newest");
   const [selectedCategories, setSelectedCategories] = useState(["All"]);
   const [selectedWeights, setSelectedWeights] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -30,25 +30,24 @@ export const ProductsSec = () => {
         (cat) => categoryMapping[cat] || cat
       );
       filtered = filtered.filter((product) =>
-        mappedCategories.some((cat) => product.category === cat)
+        mappedCategories.some((cat) => product.p_category === cat)
       );
     }
 
     // Weight filter
-    if (selectedWeights.length > 0) {
-      filtered = filtered.filter((product) => {
-        const weights = [product.gram1, product.gram2].filter(Boolean);
-        return selectedWeights.some((weight) => weights.includes(weight));
-      });
-    }
+     if (selectedWeights.length > 0) {
+    filtered = filtered.filter((p) =>
+      p.p_gram.some((w) => selectedWeights.includes(w))
+    );
+  }
 
     // Sort products
     switch (sortBy) {
       case "High to Low":
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => b.p_price - a.p_price);
         break;
       case "Low to High":
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => a.p_price - b.p_price);
         break;
       case "Newest":
         filtered.sort((a, b) => b.id - a.id);
@@ -82,9 +81,10 @@ export const ProductsSec = () => {
                     xs:w-[95vw] xs:px-4
                     lg:px-8
                     xl:w-7xl 
-                    2xl:px-0 ">
+                    2xl:px-0 2xl:gap-0">
         {/* Left Sidebar - Filters */}
-        <div className="lg:w-1/4 xs:hidden lg:inline">
+        <div className="lg:w-1/4 xs:hidden lg:inline relative ">
+        <div className="w-full h-full 2xl:-ml-16 ">
         <ShopFilters
           sortBy={sortBy}
           setSortBy={setSortBy}
@@ -94,6 +94,7 @@ export const ProductsSec = () => {
           setSelectedWeights={setSelectedWeights}
         />
         </div>
+        </div>
 
         {/* Right Side - Product Grid */}
         <div className="lg:w-3/4 xs:px-0 xs:w-[300px] sm:w-full mx-auto lg:px-8 xl:px-0">
@@ -102,7 +103,7 @@ export const ProductsSec = () => {
                 xs:grid-cols-1
                 sm:grid-cols-2
                 lg:grid-cols-2 lg:gap-5
-                xl:grid-cols-3 xl:gap-x-6 xl:gap-8"
+                xl:grid-cols-3 xl:gap-x-6 xl:gap-8 2xl:gap-10"
           >
             <Card
               filteredProduct={

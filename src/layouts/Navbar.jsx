@@ -46,7 +46,7 @@ const Navbar = () => {
       <div className="mx-auto xs:w-[95vw] xl:w-[1270px] flex items-center justify-between gap-5 px-3">
         {/* LEFT - Logo */}
         <div
-          className={` ${
+          className={`${
             isSticky
               ? "xs:w-[120px] lg:w-[140px]"
               : "xs:w-40 lg:w-[180px] xl:w-[180px]"
@@ -59,10 +59,10 @@ const Navbar = () => {
 
         {/* CENTER - Menu & Search */}
         <div
-          className={`flex justify-between
-                ${isSticky ? "items-center gap-0 lg:w-[660px] xl:w-[830px]" : "items-start gap-8 lg:w-[690px] xl:w-[880px]"}`}
+          className={`flex justify-between p-1
+                ${isSticky ? "items-center gap-0 lg:w-[660px] xl:w-[950px]" : "items-start gap-8 lg:w-[690px] xl:w-[950px]"}`}
         >
-          <div className=" flex-col justify-center-safe hidden lg:flex items-center gap-x-4 w-fit h-full">
+          <div className="flex-col justify-center-safe hidden lg:flex items-center gap-x-4 w-fit h-full ">
             {/* Menu */}
             <ul className="flex items-center gap-8">
               {Menus.map((menu, i) => (
@@ -100,7 +100,7 @@ const Navbar = () => {
 
             {/* Search bar (hide when navbar becomes sticky) */}
             {!isSticky && (
-              <div className="w-full mt-3">
+              <div className="w-full mt-4">
                 <SearchBar
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
@@ -116,20 +116,20 @@ const Navbar = () => {
           </div>
 
           {/* Country Dropdown */}
-          <div className=" h-full hidden lg:inline">
+          <div className=" h-full hidden lg:inline ">
             <CountryDropdown />
           </div>
 
           {/* RIGHT Phone  Cart / Mobile Menu */}
 
-          <div className="hidden lg:flex items-start lg:gap-6 2xl:gap-8 py-2 h-full">
+          <div className="hidden lg:flex items-start lg:gap-6 2xl:gap-8 py-2 h-full ">
             <div
               className={` ${
-                !isSticky ? "flex-col flex gap-4" : "flex items-center gap-3"
+                !isSticky ? "flex-col flex gap-4" : "flex items-center gap-8"
               }`}
             >
               <div className={`flex items-center gap-1.5 text-textPrimary font-Lato cursor-pointer text-Paragraph8 xl:text-Paragraph7 ${
-                !isSticky ? "" : "lg:hidden "
+                !isSticky ? "" : " lg:hidden xl:inline-flex"
               }`}>
                 <FaPhoneAlt className="" />
                 <p className=" font-semibold">+92 336 2111222</p>

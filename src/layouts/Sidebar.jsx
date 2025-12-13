@@ -1,5 +1,6 @@
 import React from "react";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
+import Banner from "../assets/Home/ProductBanner.png";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import ViewCart_Btn from "../components/ViewCart_Btn";
@@ -17,7 +18,8 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-[70%] sm:w-[55%] bg-[#11121E] text-white z-50 p-6 flex flex-col gap-8 transition-transform duration-500 ${
+        style={{ backgroundImage: `url(${Banner})` }}
+        className={`fixed top-0 right-0 h-full w-[70%] sm:w-[55%] text-white z-50 p-6 flex flex-col gap-8 bg-cover bg-center bg-no-repeat transition-transform duration-500 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

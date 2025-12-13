@@ -1,13 +1,20 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { FaTrashAlt } from "react-icons/fa";
 import { GrFormSubtract } from "react-icons/gr";
 import { FaPlus } from "react-icons/fa6";
 import HeroBanner from "../../assets/Home/ProductBanner.png";
 import Banner from "../../assets/Home/FeaturedBanner.png";
+import CheckoutForm from "../../components/CheckoutForm";
+import ThankYouPopup from "../../components/ThankYouPopup";
 
 const CartPage = () => {
   const { cart, addToCart, removeOneFromCart, removeFromCart } = useCart();
+
+
+  // Form pop up + Thank you pop up states
+  const [showForm, setShowForm] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   // Group items by ID + Weight + Packaging
   const uniqueItems = useMemo(() => {
@@ -51,7 +58,6 @@ const CartPage = () => {
   const gst = Math.round(subtotal * 0.17);
   const total = subtotal + gst;
 
-  // UI
   return (
     <main
       style={{ backgroundImage: `url(${HeroBanner})` }}
@@ -179,7 +185,9 @@ const CartPage = () => {
 
             {/* Buttons */}
             <div className="lg:flex lg:gap-3 space-y-5 lg:space-y-0 mt-6">
-              <button className="bg-btnYellow text-black font-semibold xs:px-4 xs:py-3 lg:px-3 lg:py-2 xl:px-4 xl:py-3 lg:text-Paragraph7 xl:text-Paragraph5 cursor-pointer rounded-lg w-full focus:ring-0 focus:outline-none hover:bg-btnYellowhover">
+              <button 
+                onClick={() => setShowForm(true)}
+                className="bg-btnYellow text-black font-semibold xs:px-4 xs:py-3 lg:px-3 lg:py-2 xl:px-4 xl:py-3 lg:text-Paragraph7 xl:text-Paragraph5 cursor-pointer rounded-lg w-full focus:ring-0 focus:outline-none hover:bg-btnYellowhover">
                 Proceed to Checkout
               </button>
               <button className="bg-btnPrimary text-white font-semibold xs:px-4 xs:py-3 lg:px-3 lg:py-2 xl:px-4 xl:py-3 lg:text-Paragraph7 xl:text-Paragraph5 cursor-pointer rounded-lg w-full focus:ring-0 focus:outline-none hover:bg-btnPrimaryHover">
@@ -195,6 +203,27 @@ const CartPage = () => {
         <img src={Banner} className="object-cover w-full h-full" />
       </div>
       <div className="bg-black/30 w-full h-full absolute top-0 blur-2xl z-10"></div>
+
+
+
+      {/* Form Pop up + Thank You Pop up  */}
+      { showForm && (
+        <CheckoutForm 
+          subtotal={subtotal}
+          gst={gst}
+          total={total}
+          onClose={() => setShowForm(false)}
+          onSuccess={() => {
+            setShowForm(false);
+            setShowThankYou(true);
+          }}
+          />
+      )}
+
+      { showThankYou && (
+        <ThankYouPopup onClose={() => setShowThankYou(false)} />
+      )}
+      
     </main>
   );
 };

@@ -27,17 +27,17 @@ const Footer = () => {
     {
       icon: <FaFacebook/>,
       name: "Facebook",
-      url: "",
+      url: "https://www.facebook.com/share/1C6QNoDXFv/",
     },
     {
       icon: <RiInstagramFill/>,
       name: "Instagram",
-      url: "",
+      url: "https://www.instagram.com/kks_foods?igsh=dmpkenpzbHpxMnZw",
     },
     {
       icon: <FaTiktok/>,
       name: "Tik Tok",
-      url: "",
+      url: "https://www.tiktok.com/@kks.foods?_t=ZS-90QvFpMEhIl&_r=1&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGn8fxZI_0-s-6diQKl_CEz-gXqrLDmX8u_ShyTOv63dHvnypyhqDwLsnkpWSA_aem_mcoWqQs6Cqhqx9sphpoQ7g",
     },
   ];
   return (
@@ -143,6 +143,7 @@ const Footer = () => {
           </h1>
 
           <button
+            onClick={() => window.open("https://wa.me/+923369917755")}
             className="flex justify-center items-center gap-2 mt-5 text-Paragraph6 text-textWhite font-bold font-Inter w-full
                                 bg-btnPrimary px-9 py-1.5 rounded-xl border-0 cursor-pointer transition-all duration-300
                                 focus:ring-2 focus:ring-btnPrimary focus:outline-none hover:to-btnPrimaryHover xs:w-[200px]"

@@ -55,8 +55,8 @@ const Card = ({ filteredProduct }) => {
               alt={product.p_name}
               className={`absolute top-0 w-[170px] object-contain transition-opacity duration-500 ease-in-out ${
                 hoveredId === product.id
-                  ? "opacity-100 h-[220px] z-10"
-                  : "opacity-0 h-full z-10"
+                  ? "opacity-100 h-[220px] z-10 scale-110"
+                  : "opacity-0 h-full z-10 "
               }`}
               style={{ backfaceVisibility: "hidden" }}
             />
@@ -79,9 +79,12 @@ const Card = ({ filteredProduct }) => {
               {/* <p className="text-textWhite font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
                 {product.gram1}
               </p> */}
-              <p className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
-                {product.p_gram}
+              {product.p_gram.map((weight, index) => (
+                <p key={index} className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
+                  {weight}
               </p>
+              ))}
+              
             </div>
             <AddToCartBtn product={product} />
           </div>
