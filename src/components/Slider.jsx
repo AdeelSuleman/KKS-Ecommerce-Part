@@ -1,18 +1,18 @@
-import React from "react";
+// Slider.jsx
+import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
-import "../index.css"
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-
 import FeaturedCards from "./FeaturedCards";
 
 const Slider = ({ products, maxVisible = 10 }) => {
-  const visible = Array.isArray(products) ? products.slice(0, maxVisible) : [];
+  const visibleProducts = useMemo(
+    () => (Array.isArray(products) ? products.slice(0, maxVisible) : []),
+    [products, maxVisible]
+  );
 
   return (
     <Swiper
@@ -25,30 +25,19 @@ const Slider = ({ products, maxVisible = 10 }) => {
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }}
-      pagination={{
-        clickable: true,
-      }}
+      pagination={{ clickable: true }}
       modules={[FreeMode, Pagination, Autoplay]}
       breakpoints={{
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 30,
-        },
+        640: { slidesPerView: 2, spaceBetween: 20 },
+        768: { slidesPerView: 3, spaceBetween: 30 },
+        1024: { slidesPerView: 4, spaceBetween: 30 },
       }}
       className="mySwiper"
     >
-      {visible.map((product) => (
+      {visibleProducts.map((product) => (
         <SwiperSlide key={product.id}>
           <div className="flex flex-col items-center-safe">
-          <FeaturedCards product={product} />
+            <FeaturedCards product={product} />
           </div>
         </SwiperSlide>
       ))}

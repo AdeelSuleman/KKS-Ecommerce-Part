@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { FaTrashAlt } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
@@ -124,12 +124,12 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          <div className="bg-white w-[80%]">
+          <div className="bg-white w-[90%]">
             <h2 className="text-2xl text-center font-bold text-orange-600">
               Your Order
             </h2>
 
-            <div className="mt-6 flex-1 overflow-auto">
+            <div className="mt-6 flex-1 overflow-auto h-[65vh] ">
               {cart.length === 0 && (
                 <p className="text-center text-gray-500">Your cart is empty.</p>
               )}
@@ -140,7 +140,7 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
                   className="flex items-start gap-2 py-4 px-2 my-3"
                 >
                   {/* PRODUCT NUMBER (1., 2., 3.) */}
-                  <div className="text-lg font-bold text-gray-800 w-6 text-right">
+                  <div className="text-lg font-bold text-gray-800 w-6 text-right ">
                     {index + 1}.
                   </div>
 
@@ -148,6 +148,8 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
                     <img
                       src={item.p_image}
                       alt={item.p_name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-contain scale-125"
                     />
                   </div>
@@ -155,7 +157,7 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="font-bold text-Paragraph4">
+                        <p className="font-bold text-Paragraph4 ">
                           {item.p_name}
                         </p>
                         <p className="text-sm text-gray-500">
@@ -175,7 +177,7 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
                         </p>
                       </div>
 
-                      <div className="text-sm font-semibold">
+                      <div className="text-sm font-semibold mt-1">
                         Rs {item.p_price}
                       </div>
                     </div>
@@ -224,4 +226,4 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
   );
 };
 
-export default Cart_SideBar;
+export default memo(Cart_SideBar);

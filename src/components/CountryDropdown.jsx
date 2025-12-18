@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { IoChevronDown } from "react-icons/io5";
 
 const CountryDropdown = () => {
@@ -12,7 +12,7 @@ const CountryDropdown = () => {
       {/* Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-[130px] px-4 py-1.5 border rounded-lg bg-Primarybg text-textPrimary cursor-pointer text-Paragraph8 xl:text-Paragraph7"
+        className="flex items-center justify-between gap-1 xs:w-[100px] lg:w-[110px] xl:w-[120px] px-3 py-1.5 border rounded-lg bg-Primarybg text-textPrimary cursor-pointer text-Paragraph8 xl:text-Paragraph7"
       >
           
         <span>{selected}</span> <IoChevronDown className="" />
@@ -39,4 +39,4 @@ const CountryDropdown = () => {
   );
 };
 
-export default CountryDropdown;
+export default memo(CountryDropdown);

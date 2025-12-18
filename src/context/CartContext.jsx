@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 
-const CartContext = createContext();
+const CartContext = createContext(null);
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
@@ -8,24 +8,26 @@ export const CartProvider = ({ children }) => {
     try {
       const savedCart = localStorage.getItem("cart");
       return savedCart ? JSON.parse(savedCart) : [];
-    } catch (error) {
+    } catch {
       return [];
     }
   });
 
+  // ✅ LocalStorage sync (safe)
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product) => {
-    setCart((prev) => [...prev, product]); // product now includes weight + packaging
-  };
+  // ✅ Stable functions (NO re-creation)
+  const addToCart = useCallback((product) => {
+    setCart((prev) => [...prev, product]);
+  }, []);
 
-  const removeFromCart = (id) => {
+  const removeFromCart = useCallback((id) => {
     setCart((prev) => prev.filter((p) => p._cartItemId !== id));
-  };
+  }, []);
 
-  const removeOneFromCart = (id) => {
+  const removeOneFromCart = useCallback((id) => {
     setCart((prev) => {
       const index = prev.findIndex((p) => p._cartItemId === id);
       if (index === -1) return prev;
@@ -33,13 +35,18 @@ export const CartProvider = ({ children }) => {
       next.splice(index, 1);
       return next;
     });
-  };
+  }, []);
 
-  return (
-    <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, removeOneFromCart }}
-    >
-      {children}
-    </CartContext.Provider>
+  // ✅ Memoized context value (MOST IMPORTANT)
+  const value = useMemo(
+    () => ({
+      cart,
+      addToCart,
+      removeFromCart,
+      removeOneFromCart,
+    }),
+    [cart, addToCart, removeFromCart, removeOneFromCart]
   );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

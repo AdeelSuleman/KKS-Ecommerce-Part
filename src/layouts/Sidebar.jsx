@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import Banner from "../assets/Home/ProductBanner.png";
 import { IoClose } from "react-icons/io5";
@@ -11,17 +11,15 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
       {/* Overlay */}
       <div
         onClick={() => setIsOpen(false)}
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all duration-300 ${
-          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
       />
 
       {/* Sidebar */}
       <div
         style={{ backgroundImage: `url(${Banner})` }}
-        className={`fixed top-0 right-0 h-full w-[70%] sm:w-[55%] text-white z-50 p-6 flex flex-col gap-8 bg-cover bg-center bg-no-repeat transition-transform duration-500 ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full w-[70%] sm:w-[55%] text-white z-50 p-6 flex flex-col gap-8 bg-cover bg-center bg-no-repeat transition-transform duration-500 ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Header */}
         <div className="flex justify-between items-center">
@@ -68,9 +66,16 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
               {menu.sub_Menu && openSubMenu === i && (
                 <ul className="ml-4 mt-2 flex flex-col gap-3 text-base text-gray-300">
                   {menu.sub_Menu.map((sub, j) => (
-                    <NavLink key={j} to={sub.nav_SubUrl}>
+                    <NavLink key={j} to={`/shop?category=${encodeURIComponent(
+                      sub.nav_SubTitle
+                    )}`}
+                      onClick={() => {
+                        setIsOpen(false);
+                        setOpenSubMenu(null);
+                      }}
+                    >
                       <li
-                        onClick={() => setIsOpen(false)}
+
                         className="hover:text-red-400 transition-all"
                       >
                         {sub.nav_SubTitle}
@@ -91,4 +96,4 @@ const Sidebar = ({ isOpen, setIsOpen, openSubMenu, setOpenSubMenu, Menus, Logo }
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

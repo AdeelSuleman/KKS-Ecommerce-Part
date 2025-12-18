@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { lazy, memo, Suspense } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ScrollToTop } from './ScrollToTop';
 import Navbar from './Navbar';
-import Home from '../pages/Home/Home';
-import Shop from '../pages/Shop/Shop';
-import Product_Details from '../pages/ProductDetails/Product_Details';
-import CartPage from '../pages/Cart/CartPage';
 import Footer from './Footer';
+
+// ✅ Lazy load pages
+const Home = lazy(() => import("../pages/Home/Home"));
+const Shop = lazy(() => import("../pages/Shop/Shop"));
+const Product_Details = lazy(() => import("../pages/ProductDetails/Product_Details"));
+const CartPage = lazy (() => import("../pages/Cart/CartPage"));
 
 const AppLayout = () => {
 
@@ -14,6 +16,7 @@ const AppLayout = () => {
 
   return (
     <main>
+        <Suspense fallback={null}>
         <ScrollToTop />
         <Navbar />
         {location.pathname === '/' && <Home/>}
@@ -21,8 +24,9 @@ const AppLayout = () => {
         {location.pathname.startsWith('/product') && <Product_Details/>}
         {location.pathname === '/cart' && <CartPage/>}
         <Footer/>
+        </Suspense>
     </main>
   )
 }
 
-export default AppLayout
+export default memo(AppLayout);

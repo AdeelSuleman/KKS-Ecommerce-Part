@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Banner from "../../assets/Home/ProductBanner.png";
 import { products } from "../../data/products";
 import Card from "../../components/Card";
 import ShopFilters from "../../components/ShopFilters";
 import ShopHeader from "../../components/ShopHeader";
+import { useSearchParams } from "react-router-dom";
 
 export const ProductsSec = () => {
   // start with no restrictive filters so all products show by default
@@ -12,6 +13,26 @@ export const ProductsSec = () => {
   const [selectedWeights, setSelectedWeights] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const VISIBLE_COUNT = 15;
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+  const productsSectionRef = useRef(null);
+
+
+
+  useEffect(() => {
+    if (categoryFromUrl) {
+      setSelectedCategories([categoryFromUrl]);
+
+      setTimeout(() => {
+        productsSectionRef.current?.scrollIntoView({
+          behavior : "smooth",
+          block: "start",
+        });
+      }, 100);
+    } else  {
+      setSelectedCategories(["All"]);
+    }
+  }, [categoryFromUrl]);
 
   // Map category names to match data
   const categoryMapping = {
@@ -64,6 +85,7 @@ export const ProductsSec = () => {
 
   return (
     <section
+      ref={productsSectionRef}
       style={{ backgroundImage: `url(${Banner})` }}
       className="bg-cover bg-center bg-no-repeat xs:py-10 md::py-16 xl:py-22 border-0 "
     >

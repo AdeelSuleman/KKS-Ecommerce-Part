@@ -15,20 +15,20 @@ const SearchBar = () => {
   const wrapperRef = useRef(null);
 
   /* ---------------- FILTER PRODUCTS ---------------- */
-  const filteredProducts = useMemo(() => {
-    let data =
-      selectedCategory === "All Categories"
-        ? products
-        : products.filter((p) => p.p_category === selectedCategory);
+const filteredProducts = useMemo(() => {
+  if (!searchQuery && selectedCategory === "All Categories") return [];
 
-    if (searchQuery.trim()) {
-      data = data.filter((p) =>
+  let data =
+    selectedCategory === "All Categories"
+      ? products
+      : products.filter(p => p.p_category === selectedCategory);
+
+  return searchQuery
+    ? data.filter(p =>
         p.p_name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    return data;
-  }, [selectedCategory, searchQuery]);
+      )
+    : data;
+}, [selectedCategory, searchQuery]);
 
   /* ---------------- OUTSIDE CLICK ---------------- */
   useEffect(() => {
@@ -48,18 +48,18 @@ const SearchBar = () => {
   };
 
   return (
-    <div ref={wrapperRef} className="relative flex-1 w-full xl:w-[550px]">
+    <div ref={wrapperRef} className="relative flex-1 w-full">
       <div className="flex items-center w-full bg-white border border-DropDownBorder rounded-md shadow-sm">
 
         {/* ================= CATEGORY BUTTON ================= */}
-        <div className="relative">
+        <div className="relative xs:w-[120px] sm:w-[150px]">
           <button
             onClick={(e) => {
               e.stopPropagation();
               setIsCategoryOpen((s) => !s);
               setIsSearchOpen(false);
             }}
-            className="flex items-center gap-1 xs:px-2 sm:px-6 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md"
+            className="flex justify-between items-center w-full gap-1 xs:px-2 sm:px-6 py-2 text-gray-500 text-sm hover:bg-gray-50 rounded-l-md"
           >
             <span>{selectedCategory}</span>
             <IoChevronDown className="text-xs" />
@@ -122,6 +122,9 @@ const SearchBar = () => {
                         >
                           <img
                             src={p.p_image}
+                            alt={p.p_name}
+                            loading="lazy"
+                            decoding="async"
                             className="xs:w-16 xs:h-16 sm:w-14 sm:h-14 object-contain rounded"
                           />
                           <div className="flex-1">

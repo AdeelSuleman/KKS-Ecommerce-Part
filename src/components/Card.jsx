@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import { memo, useState, useCallback } from "react";
 import AddToCartBtn from "./AddToCartBtn";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ filteredProduct }) => {
   const [hoveredId, setHoveredId] = useState(null);
-
   const navigate = useNavigate();
 
-  const openProductDetails = (id) => {
-    navigate(`/product/${id}`);
-  }
+  //  useCallback for stable function reference
+  const openProductDetails = useCallback(
+    (id) => {
+      navigate(`/product/${id}`);
+    },
+    [navigate]
+  );
 
   return (
     <>
@@ -20,7 +23,7 @@ const Card = ({ filteredProduct }) => {
                hover:shadow-lg hover:shadow-gray-800"
           onMouseEnter={() => setHoveredId(product.id)}
           onMouseLeave={() => setHoveredId(null)}
-          onClick={ () => openProductDetails(product.id) }
+          onClick={() => openProductDetails(product.id)}
         >
           <div className="relative w-full overflow-hidden bg-white flex flex-col items-center h-[220px]">
             {/* Soft colored blurred shadow behind the product (centered) */}
@@ -41,7 +44,9 @@ const Card = ({ filteredProduct }) => {
             <img
               src={product.p_image}
               alt={product.p_name}
-              className={`w-[170px] object-contain transition-opacity duration-500 ease-in-out ${
+              loading="lazy" //  Lazy load for performance
+              decoding="async"
+              className={`w-[170px] object-contain transition-opacity duration-300 ease-in-out ${
                 hoveredId === product.id
                   ? "opacity-0 h-[220px] z-10"
                   : "opacity-100 h-full z-10"
@@ -53,7 +58,9 @@ const Card = ({ filteredProduct }) => {
             <img
               src={product.p_images[0]}
               alt={product.p_name}
-              className={`absolute top-0 w-[170px] object-contain transition-opacity duration-500 ease-in-out ${
+              loading="lazy"
+              decoding="async"
+              className={`absolute top-0 w-[170px] object-contain transition-opacity duration-300 ease-in-out ${
                 hoveredId === product.id
                   ? "opacity-100 h-[220px] z-10 scale-110"
                   : "opacity-0 h-full z-10 "
@@ -61,6 +68,7 @@ const Card = ({ filteredProduct }) => {
               style={{ backfaceVisibility: "hidden" }}
             />
           </div>
+
           {product.hotItem && (
             <img
               src={product.p_hotItem}
@@ -68,6 +76,7 @@ const Card = ({ filteredProduct }) => {
               className="w-10 h-10 absolute z-10 top-4 left-4"
             />
           )}
+
           <div className="px-4 pt-1 pb-4">
             <h3 className="text-textWhite font-Lato font-bold xs:text-Paragraph3 lg:text-Paragraph4 xl:text-Paragraph2">
               {product.p_name}
@@ -75,17 +84,18 @@ const Card = ({ filteredProduct }) => {
             <p className="text-textGray font-Lato font-normal xs:text-Paragraph6 text-Paragraph5 -mt-1">
               {product.p_category}
             </p>
+
             <div className="flex items-center gap-8 my-3">
-              {/* <p className="text-textWhite font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
-                {product.gram1}
-              </p> */}
               {product.p_gram.map((weight, index) => (
-                <p key={index} className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5">
+                <p
+                  key={index}
+                  className="text-textGray font-Lato font-bold xs:text-Paragraph7 text-Paragraph5"
+                >
                   {weight}
-              </p>
+                </p>
               ))}
-              
             </div>
+
             <AddToCartBtn product={product} />
           </div>
         </div>
@@ -94,4 +104,4 @@ const Card = ({ filteredProduct }) => {
   );
 };
 
-export default Card;
+export default memo(Card);

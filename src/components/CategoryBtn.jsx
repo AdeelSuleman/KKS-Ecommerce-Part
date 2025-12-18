@@ -13,7 +13,7 @@ const CategoryBtn = ({ name, isActive, onClick }) => {
             : "bg-transparent border-textWhite text-textWhite"
         }
         hover:bg-btnYellowhover hover:cursor-pointer hover:border-btnYellowhover hover:text-textPrimary
-        focus:ring-4 focus:ring-warning-medium focus:outline-none`}
+        focus:ring-1 focus:ring-btnYellowhover focus:outline-none`}
     >
       {name}
     </button>

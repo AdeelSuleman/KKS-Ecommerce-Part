@@ -11,7 +11,7 @@ const Hero = () => {
     >
       <div
         className="mx-auto px-4 
-           xs:gap-4
+          xs:gap-4 xs:w-[90vw]
           flex flex-wrap
           md:flex-nowrap justify-between items-center
           xl:w-7xl xl:gap-10 "
@@ -35,7 +35,7 @@ const Hero = () => {
 
           <p
             className="font-Lato text-justify
-              xs:text-Paragraph6 md:pr-5 lg:pr-[68px]
+              xs:text-Paragraph6 md:pr-5 lg:pr-[35px]
               xl:text-Paragraph4 xl:pr-8"
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus

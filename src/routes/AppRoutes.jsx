@@ -1,7 +1,7 @@
-import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Page404 from '../pages/Page404'
 import AppLayout from '../layouts/AppLayout'
+import { memo } from 'react'
 
 const AppRoutes = () => {
   return (
@@ -17,4 +17,4 @@ const AppRoutes = () => {
   )
 }
 
-export default AppRoutes
+export default memo(AppRoutes);

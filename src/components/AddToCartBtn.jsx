@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { IoMdCart } from "react-icons/io";
 import { useCart } from "../context/CartContext";
 
-const AddToCartBtn = ({ product }) => {
+const AddToCartBtn = React.memo(({ product }) => {
   const { addToCart } = useCart();
 
-  const buildCartItem = () => ({
+  const buildCartItem = useCallback(() => ({
     ...product,
     selectedWeight: product.p_gram?.[0] || "N/A",
     packaging: "Box",
     _cartItemId: `${product.id}-${Math.random()}`,
-  });
+  }), [product]);
 
-  const handleClick = (e) => {
+  const handleClick = useCallback((e) => {
     e.stopPropagation();
     addToCart(buildCartItem());
-  };
+  }, [addToCart, buildCartItem]);
 
   return (
     <button
@@ -32,7 +32,6 @@ const AddToCartBtn = ({ product }) => {
       <p>Rs {product.p_price}.00</p>
     </button>
   );
-};
+});
 
 export default AddToCartBtn;
-  
