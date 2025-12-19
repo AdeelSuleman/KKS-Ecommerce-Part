@@ -37,6 +37,10 @@ export const CartProvider = ({ children }) => {
     });
   }, []);
 
+  const clearCart = useCallback(() => {
+    setCart([]);
+  }, []);
+
   // ✅ Memoized context value (MOST IMPORTANT)
   const value = useMemo(
     () => ({
@@ -44,8 +48,9 @@ export const CartProvider = ({ children }) => {
       addToCart,
       removeFromCart,
       removeOneFromCart,
+      clearCart,
     }),
-    [cart, addToCart, removeFromCart, removeOneFromCart]
+    [cart, addToCart, removeFromCart, removeOneFromCart, clearCart]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

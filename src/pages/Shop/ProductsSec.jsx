@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 
 export const ProductsSec = () => {
   // start with no restrictive filters so all products show by default
-  const [sortBy, setSortBy] = useState("Newest");
+  const [sortBy, setSortBy] = useState("Low to High");
   const [selectedCategories, setSelectedCategories] = useState(["All"]);
   const [selectedWeights, setSelectedWeights] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -127,6 +127,11 @@ export const ProductsSec = () => {
                 lg:grid-cols-2 lg:gap-5
                 xl:grid-cols-3 xl:gap-x-6 xl:gap-8 2xl:gap-10"
           >
+          {filteredAndSortedProducts.length === 0 ? (
+            <p className="text-textWhite font-Lato text-center col-span-full mt-10">
+            Products not found in this category.
+          </p>
+          ) : (
             <Card
               filteredProduct={
                 showAll
@@ -134,6 +139,7 @@ export const ProductsSec = () => {
                   : filteredAndSortedProducts.slice(0, VISIBLE_COUNT)
               }
             />
+          )}
           </section>
           {/* Load More / Show Less button for product lists longer than VISIBLE_COUNT */}
           {filteredAndSortedProducts.length > VISIBLE_COUNT && (

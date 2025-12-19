@@ -95,7 +95,7 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
   };
 
   const subtotal = uniqueItems.reduce(
-    (sum, item) => sum + (item.p_price || 0) * (item.qty || 1),
+     (sum, item) => sum + (item.price || 0) * (item.qty || 1),
     0
   );
 
@@ -178,7 +178,7 @@ const Cart_SideBar = ({ isOpen, onClose }) => {
                       </div>
 
                       <div className="text-sm font-semibold mt-1">
-                        Rs {item.p_price}
+                        Rs {item.price}
                       </div>
                     </div>
 

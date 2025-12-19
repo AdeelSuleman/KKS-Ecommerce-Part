@@ -27,7 +27,7 @@ const ShopFilters = ({
   ];
 
   // Weight options
-  const weightOptions = ["120g", "250g", "400g", "500g", "1000g", "5kg"];
+  const weightOptions = ["1000g"];
 
   // Handle category checkbox
   const handleCategoryChange = (category) => {

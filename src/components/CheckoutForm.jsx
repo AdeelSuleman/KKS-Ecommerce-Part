@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { RiArrowDownWideLine } from "react-icons/ri";
+import { useCart } from "../context/CartContext";
 
 const CheckoutForm = ({ onClose, onSuccess, subtotal, gst, total }) => {
+
+  const { clearCart } = useCart();
   
   // Fixed Shipping Charges
   const shipping = subtotal > 0 ? 200 : 0;
@@ -52,13 +55,15 @@ const CheckoutForm = ({ onClose, onSuccess, subtotal, gst, total }) => {
   const handlePlaceOrder = () => {
     if (!validateForm()) return;
 
+    clearCart();
+    
     onClose();
     setTimeout(() => onSuccess(), 200);
   };
 
   return (
     <div className="fixed inset-0 w-full h-full bg-black/60 backdrop-blur-md flex items-center justify-center z-50 px-4">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-xl py-5 px-8 relative">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-xl py-5 px-6 relative">
 
         {/* CLOSE BUTTON */}
         <button
@@ -72,7 +77,7 @@ const CheckoutForm = ({ onClose, onSuccess, subtotal, gst, total }) => {
           Checkout
         </h2>
 
-        <div className="space-y-4  h-[60vh] overflow-y-scroll">
+        <div className="space-y-4 px-3 h-[60vh] overflow-y-scroll">
 
           {/* Row 1 */}
           <div className="grid grid-cols-2 gap-4">

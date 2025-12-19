@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { FaTrashAlt } from "react-icons/fa";
 import { GrFormSubtract } from "react-icons/gr";
@@ -51,12 +51,27 @@ const CartPage = () => {
   };
 
   const subtotal = uniqueItems.reduce(
-    (sum, item) => sum + item.p_price * item.qty,
+    (sum, item) => sum + (item.price || 0) * item.qty,
     0
   );
 
   const gst = Math.round(subtotal * 0.17);
   const total = subtotal + gst;
+
+
+  // Disable scrolling when popups are open
+useEffect(() => {
+  if (showForm || showThankYou) {
+    document.body.style.overflow = "hidden"; // scroll disable
+  } else {
+    document.body.style.overflow = "auto";   // scroll enable
+  }
+
+  // Clean up on unmount
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [showForm, showThankYou]);
 
   return (
     <main
@@ -102,7 +117,7 @@ const CartPage = () => {
 
                   <div>
                     <p className="text-textSecondary text-Paragraph2 font-Lato font-bold">{item.p_name}</p>
-                    <p className="text-textWhite text-Paragraph4 font-Lato font-bold">Rs {item.p_price}</p>
+                    <p className="text-textWhite text-Paragraph4 font-Lato font-bold">Rs {item.price}</p>
 
                     <p className="text-textWhite text-Paragraph6 font-Lato font-bold">
                       Weight: <span className="font-normal">{item.selectedWeight}</span>
@@ -119,7 +134,7 @@ const CartPage = () => {
                 {/* RIGHT — PRICE */}
                 <div className="h-full  xs:mt-2 sm:mt-0 xs:space-y-2 lg:ml-10 xl:ml-0">
                 <p className="text-white font-semibold  text-right">
-                  Rs {item.p_price * item.qty}
+                  Rs {(item.price || 0) * item.qty}
                 </p>
 
                 {/* Qty Control */}

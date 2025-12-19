@@ -4,7 +4,7 @@ export const Menus = [
   
     {
       nav_Title: "Our Products",
-      nav_Url: "/shop",
+      nav_Url: "",
       sub_Menu: [
         { nav_SubTitle: "Recipe Mixes", nav_SubUrl: "/recipe-mixes" },
         { nav_SubTitle: "Plain Spices", nav_SubUrl: "/plain-spices" },

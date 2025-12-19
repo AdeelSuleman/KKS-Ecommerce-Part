@@ -45,7 +45,7 @@ const HeroProduct = ({ product }) => {
       ...product,
       selectedWeight,
       packaging,
-      // _cartItemId: `${product.id}-${selectedWeight}-${packaging}-${Math.random()}`,
+      price: product.p_weightPrice?.[selectedWeight] || product.p_price,  
        _cartItemId: `${product.id}-${selectedWeight}-${packaging}`,
     };
   };
@@ -82,13 +82,13 @@ const HeroProduct = ({ product }) => {
           {product.p_name} Masala
         </h1>
         <p className="xs:text-Heading5 lg:text-Heading4 xl:text-Heading3 mt-3 font-semibold font-Lato text-textWhite tracking-tight leading-tight">
-          Rs {product.p_price}
+          Rs {product.p_weightPrice?.[selectedWeight] || product.p_price}
         </p>
 
         {/* Weight Selection */}
         <div className="mt-6">
           <div className="flex gap-3 items-center">
-            <p className="font-semibold font-Lato text-textWhite xs:text-Paragraph7 lg:text-Paragraph6 tracking-tight leading-tight pr-5">
+            <p className="font-semibold font-Lato text-textWhite text-Paragraph6 tracking-tight leading-tight pr-5">
               Weight:
             </p>
 
@@ -97,7 +97,7 @@ const HeroProduct = ({ product }) => {
                 key={i}
                 // onClick={() => setSelectedWeight(w)}
                 onClick={() => handleWeightChange(w, i)}
-                className={`px-4 py-1 rounded-md xs:text-Paragraph7 lg:text-Paragraph6 tracking-tight leading-tight font-Lato transition cursor-pointer
+                className={`px-4 py-1 rounded-md text-Paragraph6 tracking-tight leading-tight font-Lato transition cursor-pointer
           ${selectedWeight === w
                     ? "bg-[#E64520] text-white"
                     : "text-white hover:text-[#E64520]"
@@ -112,7 +112,7 @@ const HeroProduct = ({ product }) => {
         {/* Packaging */}
         <div className="mt-5">
           <div className="flex items-center gap-6 mt-2">
-            <p className="font-semibold font-Lato text-textWhite xs:text-Paragraph7 lg:text-Paragraph6 tracking-tight leading-tight">
+            <p className="font-semibold font-Lato text-textWhite text-Paragraph6 tracking-tight leading-tight">
               Packaging Type:
             </p>
 
@@ -132,7 +132,7 @@ const HeroProduct = ({ product }) => {
               </span>
 
               <span
-                className={`xs:text-Paragraph7 xl:text-Paragraph6 font-Lato 
+                className={`text-Paragraph6 font-Lato 
           ${packaging === "Box" ? "text-white" : "text-gray-300"}
         `}
               >
@@ -156,7 +156,7 @@ const HeroProduct = ({ product }) => {
               </span>
 
               <span
-                className={`xs:text-Paragraph7 xl:text-Paragraph6 font-Lato 
+                className={`text-Paragraph6 font-Lato 
           ${packaging === "Pouch" ? "text-white" : "text-gray-300"}
         `}
               >
@@ -195,7 +195,7 @@ const HeroProduct = ({ product }) => {
             onClick={() => addToCart(buildCartItem())}
             className="bg-btnPrimary flex justify-between items-center w-fit gap-6 sm:gap-2 md:gap-8 lg:gap-4 px-5 py-1.5 rounded-lg
         text-textWhite font-Lato font-bold transition-all duration-300 cursor-pointer
-        hover:bg-btnPrimaryHover xs:text-Paragraph7 lg:text-Paragraph8 xl:text-Paragraph6
+        hover:bg-btnPrimaryHover xs:text-Paragraph6 lg:text-Paragraph8 xl:text-Paragraph6
         focus:ring-2 focus:ring-btnPrimaryHover focus:outline-none"
           >
             <div className="flex items-center gap-3 sm:gap-2">
@@ -211,10 +211,10 @@ const HeroProduct = ({ product }) => {
             <img src={Delivery1} alt="" className="xs:w-10 xs:h-12 xl:w-20 object-contain mx-auto" />
           </div>
           <div className="flex flex-col items-center-safe">
-            <img src={Delivery2} alt="" className="xs:w-9 xs:h-8 xl:w-20 xl:h-12 object-contain mx-auto" />
+            <img src={Delivery2} alt="" className="xs:w-9 xs:h-8 xl:w-20 xl:h-12 object-contain" />
           </div>
           <div className="flex flex-col items-center-safe">
-            <img src={Delivery3} alt="" className="xs:w-16 xs:h-10 xl:w-28 xl:h-22 object-contain mx-auto" />
+            <img src={Delivery3} alt="" className="xs:w-16 xs:h-10 xl:w-28 xl:h-22 object-contain mx-auto pl-1" />
           </div>
 
         </div>
@@ -244,9 +244,11 @@ const HeroProduct = ({ product }) => {
             Packaging & Delivery
           </h2>
           <ul className="text-textWhite space-y-1 mt-2">
-            {product.p_packaging.map((line, i) => (
-              <li key={i}> {line}</li>
-            ))}
+              <li className="tracking-tight leading-tight">Box and Pouch</li>
+              <li className="tracking-tight leading-tight">Country of Origin: Pakistan</li>
+              <li className="tracking-tight leading-tight">Delivery Area: Nationwide</li>
+              <li className="tracking-tight leading-tight">Ships in 3 to 4 working days</li>
+              <li className="tracking-tight leading-tight">Shipped By: Kausar</li>
           </ul>
         </div>
       </div>

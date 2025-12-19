@@ -53,11 +53,6 @@ const Footer = () => {
             {SocialIcons.map((socail, index) => (
               <div key={index} className="text-Heading5 xl:text-Heading4">
                 <Link to={socail.url}>
-                  {/* <img
-                    src={socail.icon}
-                    alt={socail.name}
-                    className="w-8 h-7"
-                  /> */}
                   {socail.icon}
                 </Link>
               </div>
@@ -68,7 +63,7 @@ const Footer = () => {
         {/* Quick Links */}
         <div className="flex flex-col items-center-safe relative">
           <div className="flex flex-col items-center-safe w-full sm:w-40">
-            <h1 className="font-Poppins font-bold text-Paragraph6 text-btnPrimary xs:text-left w-full">
+            <h1 className="font-Poppins font-bold text-Paragraph5 text-btnPrimary xs:text-left w-full">
               Quick Links
             </h1>
 
@@ -77,7 +72,7 @@ const Footer = () => {
                 (menu, i) => (
                   <li
                     key={i}
-                    className="py-1.5 font-Lato text-Paragraph8 text-left w-full"
+                    className="py-1.5 font-Lato text-Paragraph6 text-left w-full"
                   >
                     <Link to={menu.nav_Url}>
                       <span>{menu.nav_Title}</span>
@@ -94,7 +89,7 @@ const Footer = () => {
         {/* Product Range */}
         <div className="flex flex-col items-center-safe relative">
           <div className="flex flex-col items-center-safe w-full sm:w-40">
-            <h1 className="font-Poppins font-bold text-Paragraph6 text-btnPrimary xs:text-left w-full">
+            <h1 className="font-Poppins font-bold text-Paragraph5 text-btnPrimary xs:text-left w-full">
               Product Ranges
             </h1>
 
@@ -102,11 +97,11 @@ const Footer = () => {
               {(isXlScreen ? categories.slice(0, 4) : categories).map((cat) => (
                 <li
                   key={cat.id}
-                  className="py-1.5 font-Lato text-Paragraph8 text-left w-full"
+                  className="py-1.5 font-Lato text-Paragraph6 text-left w-full"
                 >
-                  {/* <Link to={menu.nav_Url}> */}
+                  <Link to={`/shop?category=${encodeURIComponent(cat.name)}`}>
                   <span>{cat.name}</span>
-                  {/* </Link> */}
+                  </Link> 
                 </li>
               ))}
             </ul>
@@ -122,11 +117,11 @@ const Footer = () => {
               {categories.slice(4).map((cat) => (
                 <li
                   key={cat.id}
-                  className="py-1.5 font-Lato text-Paragraph8 text-left w-full"
+                  className="py-1.5 font-Lato text-Paragraph6 text-left w-full"
                 >
-                  {/* <Link to={menu.nav_Url}> */}
+                  <Link to={`/shop?category=${encodeURIComponent(cat.name)}`}>
                   <span>{cat.name}</span>
-                  {/* </Link> */}
+                  </Link>
                 </li>
               ))}
             </ul>
