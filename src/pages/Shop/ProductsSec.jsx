@@ -80,7 +80,7 @@ export const ProductsSec = () => {
 
       <section className="mt-8 flex flex-col lg:flex-row gap-6 mx-auto xs:w-[95vw] xs:px-4 lg:px-8 xl:w-7xl 2xl:px-0 2xl:gap-0">
         <aside className="lg:w-1/4 xs:hidden lg:block">
-          <div className="w-full h-full lg:-ml-6 xl:ml-0 2xl:-ml-5">
+          <div className="w-full h-full lg:-ml-6 xl:ml-0 2xl:-ml-16">
             <ShopFilters
               sortBy={sortBy}
               setSortBy={setSortBy}
