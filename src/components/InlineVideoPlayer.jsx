@@ -2,7 +2,7 @@ import { memo, useState, useRef, useEffect } from "react";
 import { FaCirclePlay } from "react-icons/fa6";
 import { FaPauseCircle } from "react-icons/fa";
 import Thumbnail from "../assets/Home/VideoThumbnail.png";
-import Video from "../assets/Home/Video.mp4";
+import Video from "../assets/Home/KKSVideo.mp4";
 
 const InlineVideoPlayer = () => {
   const [play, setPlay] = useState(false);
@@ -11,7 +11,6 @@ const InlineVideoPlayer = () => {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
 
-  // ✅ IntersectionObserver — video tab load hoga jab viewport me aaye
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -20,7 +19,7 @@ const InlineVideoPlayer = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     if (containerRef.current) observer.observe(containerRef.current);
@@ -37,75 +36,49 @@ const InlineVideoPlayer = () => {
     }
   };
 
-  const handlePause = (e) => {
-    e?.stopPropagation();
-    videoRef.current?.pause();
-    setPlay(false);
-  };
-
   return (
     <div
       ref={containerRef}
-      className="relative w-full rounded-2xl overflow-hidden cursor-pointer"
+      className="relative w-full rounded-2xl overflow-hidden cursor-pointer aspect-video bg-gray-200"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => !play && handlePlay()}
     >
-      {/* Video (mounted but not network-heavy) */}
       <video
         ref={videoRef}
         src={Video}
         poster={Thumbnail}
         onLoadedData={() => setVideoReady(true)}
-        className={`w-full h-full object-cover transition-opacity duration-300 ease-in-out ${
+        className={`w-full h-full object-cover transition-opacity duration-300 ${
           play && videoReady ? "opacity-100" : "opacity-0"
         }`}
         playsInline
-        preload="none"   // 🔥 BIG WIN
+        muted
+        preload="none"
       />
 
-      {/* Thumbnail */}
       <img
         src={Thumbnail}
-        loading="lazy"        // 🔥 SAFE
-        decoding="async"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-in-out ${
-          play && videoReady
-            ? "opacity-0 pointer-events-none"
-            : "opacity-100"
+        fetchpriority="high" // Hero area mein hai isliye priority high
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+          play && videoReady ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
-        alt="thumbnail"
+        alt="Video Thumbnail"
       />
 
-      {/* Overlay */}
-      <div
-        className={`absolute inset-0 bg-black/30 transition-opacity duration-300 ${
-          play ? "bg-opacity-0" : "bg-opacity-20"
-        }`}
-      />
-
-      {/* Controls */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      {/* Play/Pause Buttons - Simplified for performance */}
+      <div className="absolute inset-0 flex items-center justify-center bg-black/10">
         {!play ? (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePlay();
-            }}
-            className="p-2 bg-transparent border-0 cursor-pointer focus:ring-0 focus:outline-none"
-            aria-label="Play video"
-          >
-            <FaCirclePlay className="text-Heading1 text-textWhite" />
+          <button onClick={handlePlay} aria-label="Play video" className="focus:outline-none cursor-pointer">
+            <FaCirclePlay className="text-Heading1 text-textWhite drop-shadow-lg" />
           </button>
         ) : (
-          <button
-            onClick={(e) => handlePause(e)}
-            className={`p-2 bg-transparent border-0 cursor-pointer transition-opacity duration-150 focus:ring-0 focus:outline-none ${
-              hovered ? "opacity-100" : "opacity-0"
-            }`}
+          <button 
+            onClick={(e) => { e.stopPropagation(); videoRef.current.pause(); setPlay(false); }} 
+            className={`focus:outline-none transition-opacity cursor-pointer ${hovered ? "opacity-100" : "opacity-0"}`}
             aria-label="Pause video"
           >
-            <FaPauseCircle className="text-Heading1 text-textWhite" />
+            <FaPauseCircle className="text-Heading1 text-textWhite drop-shadow-lg" />
           </button>
         )}
       </div>

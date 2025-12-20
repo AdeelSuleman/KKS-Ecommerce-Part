@@ -1,34 +1,27 @@
-import React, { lazy, memo, Suspense } from 'react'
-import { useLocation } from 'react-router-dom'
-import { ScrollToTop } from './ScrollToTop';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import AppLoader from '../Loader/AppLoader';
-
-// ✅ Lazy load pages
-const Home = lazy(() => import("../pages/Home/Home"));
-const Shop = lazy(() => import("../pages/Shop/Shop"));
-const Product_Details = lazy(() => import("../pages/ProductDetails/Product_Details"));
-const CartPage = lazy (() => import("../pages/Cart/CartPage"));
+import React, { memo, Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { ScrollToTop } from "./ScrollToTop";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import AppLoader from "../Loader/AppLoader";
 
 const AppLayout = () => {
-
-    const location = useLocation();
-    
-
   return (
-    <main>
-        <Suspense fallback={<AppLoader/>}>
-        <ScrollToTop />
-        <Navbar />
-        {location.pathname === '/' && <Home/>}
-        {location.pathname === '/shop' && <Shop/>}
-        {location.pathname.startsWith('/product') && <Product_Details/>}
-        {location.pathname === '/cart' && <CartPage/>}
-        <Footer/>
+    <div className="flex flex-col min-h-screen">
+      <ScrollToTop />
+      <Navbar />
+
+      {/* Main content area */}
+      <main className="grow">
+        <Suspense fallback={<AppLoader />}>
+          {/* Outlet ka matlab hai: Jo bhi current route hai, wo yahan render ho jaye */}
+          <Outlet />
         </Suspense>
-    </main>
-  )
-}
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default memo(AppLayout);

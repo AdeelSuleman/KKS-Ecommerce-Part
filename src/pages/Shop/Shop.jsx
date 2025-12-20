@@ -4,10 +4,10 @@ import { ProductsSec } from './ProductsSec'
 
 const Shop = () => {
   return (
-    <section className=''>
+    <main className='overflow-hidden'>
         <BannerSlider/>
         <ProductsSec />
-    </section>
+    </main>
   )
 }
 

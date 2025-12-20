@@ -1,22 +1,27 @@
-// FeaturedSection.jsx
 import React, { useMemo } from "react";
 import Banner from "../../assets/Home/FeaturedBanner.png";
 import { products } from "../../data/products";
 import Slider from "../../components/Slider";
 
 const FeaturedSection = () => {
-  // Featured products - memoized for performance
   const featuredProducts = useMemo(() => products, []);
 
   return (
-    <section
-      style={{ backgroundImage: `url(${Banner})` }}
-      className="bg-contain bg-no-repeat overflow-hidden xs:pt-10 xs:pb-7 lg:pt-14 lg:pb-12 border-0"
-    >
-      <h1 className="font-Poppins font-bold text-textPrimary xs:text-Heading4 xs:text-center md:text-Heading3 lg:text-Heading3 xl:text-Heading2">
+    <section className="relative overflow-hidden xs:pt-10 xs:pb-7 lg:pt-14 lg:pb-12 border-0">
+      {/* Background Image Optimization */}
+      <img 
+        src={Banner} 
+        alt="" 
+        className="absolute inset-0 w-full h-full object-contain -z-10" 
+        loading="lazy" 
+        decoding="async"
+      />
+      
+      <h1 className="font-Poppins font-bold text-textPrimary xs:text-Heading4 xs:text-center md:text-Heading3 lg:text-Heading3 xl:text-Heading2 relative z-10">
         FEATURED <br className="md:hidden" /> PRODUCTS
       </h1>
-      <div className="mx-auto xs:mt-8 lg:mt-10 xs:w-[95vw] xl:w-7xl px-5">
+      
+      <div className="mx-auto xs:mt-8 lg:mt-10 xs:w-[95vw] xl:w-7xl px-5 relative z-10">
         <Slider products={featuredProducts} />
       </div>
     </section>

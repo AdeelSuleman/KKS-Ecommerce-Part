@@ -21,7 +21,7 @@ const ViewCart_Btn = ({ onClose }) => {
       className="relative w-full flex justify-center items-center gap-4
         text-Paragraph6 font-Lato text-textWhite bg-btnPrimary
         rounded-xl px-4 py-3 transition-all duration-300
-        hover:bg-btnPrimaryHover"
+        hover:bg-btnPrimaryHover cursor-pointer"
     >
       {/* Cart Icon + Badge */}
       <div className="relative">

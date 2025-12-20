@@ -1,59 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, memo, useCallback } from "react";
 import ProductsImages from "../../components/ProductsImages";
 import { useCart } from "../../context/CartContext";
 import Delivery1 from "../../assets/D1.png";
 import Delivery2 from "../../assets/D2.png";
 import Delivery3 from "../../assets/D3.png";
 import { IoMdCart } from "react-icons/io";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaCheck } from "react-icons/fa";
 import { GrFormSubtract } from "react-icons/gr";
-import { FaCheck } from "react-icons/fa";
 
 const HeroProduct = ({ product }) => {
   const [value, setValue] = useState(0);
-  const [imageIndex, setImageIndex] = useState(0);
-  const { cart, addToCart, removeOneFromCart, removeFromCart } = useCart();
-
-  //   Weight & Packaging State
   const [selectedWeight, setSelectedWeight] = useState(product.p_gram[0]);
   const [packaging, setPackaging] = useState("Box");
+  
+  const { cart, addToCart, removeOneFromCart } = useCart();
 
-// When user selects weight → reset image to that index
+  // 1. Optimized Cart Qty Logic: Har render pe map banane ki bajaye memoize karein
+  const currentItemQty = useMemo(() => {
+    const cartItemId = `${product.id}-${selectedWeight}-${packaging}`;
+    // Pura cart filter karne ke bajaye sirf current item ko count karein
+    return cart.filter(item => item._cartItemId === cartItemId).length;
+  }, [cart, product.id, selectedWeight, packaging]);
+
+  // 2. Memoized Cart Item Builder
+  const buildCartItem = useCallback(() => ({
+    ...product,
+    selectedWeight,
+    packaging,
+    price: product.p_weightPrice?.[selectedWeight] || product.p_price,
+    _cartItemId: `${product.id}-${selectedWeight}-${packaging}`,
+  }), [product, selectedWeight, packaging]);
+
+  // 3. Optimized Handlers
   const handleWeightChange = (w, index) => {
     setSelectedWeight(w);
-    setValue(index); // <-- RESET IMAGE ACCORDING TO WEIGHT
+    setValue(index);
   };
 
-
-  // --- BUILD UNIQUE CART ITEMS TO GET CURRENT PRODUCT QTY ---
-  const uniqueItems = React.useMemo(() => {
-    const map = {};
-    cart.forEach((item) => {
-      if (!map[item.id]) map[item.id] = { ...item, qty: 1 };
-      else map[item.id].qty += 1;
-    });
-    return Object.values(map);
-  }, [cart]);
-
-  // Find this product in cart (if exists)
-  const cartItem = uniqueItems.find((i) => i.id === product.id);
-  const qty = cartItem ? cartItem.qty : 0;
-
-  // Increase / Decrease Handlers
-  const buildCartItem = () => {
-    return {
-      ...product,
-      selectedWeight,
-      packaging,
-      price: product.p_weightPrice?.[selectedWeight] || product.p_price,  
-       _cartItemId: `${product.id}-${selectedWeight}-${packaging}`,
-    };
-  };
   const increase = () => addToCart(buildCartItem());
-  
   const decrease = () => {
-  removeOneFromCart(`${product.id}-${selectedWeight}-${packaging}`);
-};
+    if (currentItemQty > 0) {
+      removeOneFromCart(`${product.id}-${selectedWeight}-${packaging}`);
+    }
+  };
 
   return (
     <section className="grid xs:grid-cols-1 lg:grid-cols-2 items-start gap-10 xl:gap-14">
@@ -64,44 +53,31 @@ const HeroProduct = ({ product }) => {
           value={value}
           setValue={setValue}
         />
-
-        {/* Divider */}
-        <div className="bg-textGray w-full h-px xs:mt-2 lg:mt-12"></div>
-
+        <div className="bg-textGray w-full h-px xs:mt-5 lg:mt-12"></div>
       </div>
 
       {/* RIGHT TEXT DETAILS */}
-      <div className="">
-        <h1
-          className="font-Poppins font-bold text-textSecondary tracking-tight leading-tight
-                xs:text-Heading4 xs:text-left
-                md:text-Heading3 
-                lg:text-Heading3
-                xl:text-Heading1"
-        >
+      <div className="flex flex-col">
+        <h1 className="font-Poppins font-bold text-textSecondary tracking-tight leading-tight xs:text-Heading4 md:text-Heading3 xl:text-Heading1">
           {product.p_name} Masala
         </h1>
-        <p className="xs:text-Heading5 lg:text-Heading4 xl:text-Heading3 mt-3 font-semibold font-Lato text-textWhite tracking-tight leading-tight">
+        
+        <p className="xs:text-Heading5 lg:text-Heading4 xl:text-Heading3 mt-3 font-semibold font-Lato text-textWhite">
           Rs {product.p_weightPrice?.[selectedWeight] || product.p_price}
         </p>
 
         {/* Weight Selection */}
         <div className="mt-6">
           <div className="flex gap-3 items-center">
-            <p className="font-semibold font-Lato text-textWhite text-Paragraph6 tracking-tight leading-tight pr-5">
-              Weight:
-            </p>
-
+            <span className="font-semibold font-Lato text-textWhite text-Paragraph6 pr-5">Weight:</span>
             {product.p_gram.map((w, i) => (
               <button
                 key={i}
-                // onClick={() => setSelectedWeight(w)}
+                type="button"
                 onClick={() => handleWeightChange(w, i)}
-                className={`px-4 py-1 rounded-md text-Paragraph6 tracking-tight leading-tight font-Lato transition cursor-pointer
-          ${selectedWeight === w
-                    ? "bg-[#E64520] text-white"
-                    : "text-white hover:text-[#E64520]"
-                  }`}
+                className={`px-4 py-1 rounded-md text-Paragraph6 font-Lato transition-all duration-200 ${
+                  selectedWeight === w ? "bg-[#E64520] text-white" : "bg-transparent text-white border border-gray-600 hover:border-[#E64520]"
+                }`}
               >
                 {w}
               </button>
@@ -109,128 +85,71 @@ const HeroProduct = ({ product }) => {
           </div>
         </div>
 
-        {/* Packaging */}
-        <div className="mt-5">
-          <div className="flex items-center gap-6 mt-2">
-            <p className="font-semibold font-Lato text-textWhite text-Paragraph6 tracking-tight leading-tight">
-              Packaging Type:
-            </p>
-
-            {/* Box */}
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => setPackaging("Box")}
+        {/* Packaging Selection */}
+        <div className="mt-5 flex items-center gap-6">
+          <span className="font-semibold font-Lato text-textWhite text-Paragraph6">Packaging:</span>
+          {["Box", "Pouch"].map((type) => (
+            <button
+              key={type}
+              type="button"
+              onClick={() => setPackaging(type)}
+              className="flex items-center gap-2 cursor-pointer group"
             >
-              <span
-                className={`w-5 h-5 rounded border relative flex items-center justify-center
-          ${packaging === "Box" ? "bg-white text-black" : "bg-transparent border-white"}
-        `}
-              >
-                {packaging === "Box" && (
-                  <FaCheck className="text-Paragraph9" />
-                )}
+              <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
+                packaging === type ? "bg-white text-black" : "bg-transparent border-white"
+              }`}>
+                {packaging === type && <FaCheck size={10} />}
+              </div>
+              <span className={`text-Paragraph6 font-Lato ${packaging === type ? "text-white" : "text-gray-400"}`}>
+                {type}
               </span>
-
-              <span
-                className={`text-Paragraph6 font-Lato 
-          ${packaging === "Box" ? "text-white" : "text-gray-300"}
-        `}
-              >
-                Box
-              </span>
-            </div>
-
-            {/* Pouch */}
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => setPackaging("Pouch")}
-            >
-              <span
-                className={`w-5 h-5 rounded border relative flex items-center justify-center
-          ${packaging === "Pouch" ? "bg-white text-black" : "bg-transparent border-white"}
-        `}
-              >
-                {packaging === "Pouch" && (
-                  <FaCheck className="text-Paragraph9" />
-                )}
-              </span>
-
-              <span
-                className={`text-Paragraph6 font-Lato 
-          ${packaging === "Pouch" ? "text-white" : "text-gray-300"}
-        `}
-              >
-                Pouch
-              </span>
-            </div>
-          </div>
+            </button>
+          ))}
         </div>
 
         {/* Quantity + Add To Cart */}
-        <div className="flex items-center gap-4 mt-6">
-          {/* QUANTITY CONTROL — Always Visible */}
+        <div className="flex items-center gap-4 mt-8">
           <div className="flex items-center gap-3">
-            <button
-              onClick={decrease}
-              className="w-8 h-8 border text-textPrimary bg-Primarybg rounded flex items-center justify-center cursor-pointer"
-            >
+            <button onClick={decrease} className="h-8 w-8 flex flex-col justify-center-safe items-center-safe bg-Primarybg text-textPrimary cursor-pointer transition-colors">
               <GrFormSubtract size={20} />
             </button>
-
-            <div className="text-white font-bold px-2">
-              {/* {qty} */}
-              {qty === 0 ? 1 : qty}
-              </div>
-
-            <button
-              onClick={increase}
-              className="w-8 h-8 border text-textPrimary bg-Primarybg rounded flex items-center justify-center cursor-pointer"
-            >
-              <FaPlus />
+            <span className="px-4 text-white font-bold min-w-10 text-center">
+              {currentItemQty || 1}
+            </span>
+            <button onClick={increase} className="h-8 w-8 flex flex-col justify-center-safe items-center-safe bg-Primarybg text-textPrimary cursor-pointer transition-colors">
+              <FaPlus size={16} />
             </button>
           </div>
 
-          {/* ADD TO CART BUTTON — Always Visible */}
           <button
-            onClick={() => addToCart(buildCartItem())}
-            className="bg-btnPrimary flex justify-between items-center w-fit gap-6 sm:gap-2 md:gap-8 lg:gap-4 px-5 py-1.5 rounded-lg
-        text-textWhite font-Lato font-bold transition-all duration-300 cursor-pointer
-        hover:bg-btnPrimaryHover xs:text-Paragraph6 lg:text-Paragraph8 xl:text-Paragraph6
-        focus:ring-2 focus:ring-btnPrimaryHover focus:outline-none"
+            onClick={increase}
+            className="bg-btnPrimary cursor-pointer flex items-center gap-3 px-8 py-2 rounded-lg text-textWhite font-Lato font-bold hover:bg-btnPrimaryHover transition-all shadow-lg active:scale-95"
           >
-            <div className="flex items-center gap-3 sm:gap-2">
-              <IoMdCart className="" />
-              <span className="">Add to cart</span>
-            </div>
+            <IoMdCart size={20} />
+            <span>Add to cart</span>
           </button>
         </div>
 
-        {/* Delivery Icons  */}
-        <div className="grid grid-cols-3 items-center justify-between xs:gap-0 gap-6 xs:mt-6 lg:mt-8 xl:mt-2 xs:w-[200px] lg:w-[250px]">
-          <div className="flex flex-col items-center-safe">
-            <img src={Delivery1} alt="" className="xs:w-10 xs:h-12 xl:w-20 object-contain mx-auto" />
-          </div>
-          <div className="flex flex-col items-center-safe">
-            <img src={Delivery2} alt="" className="xs:w-9 xs:h-8 xl:w-20 xl:h-12 object-contain" />
-          </div>
-          <div className="flex flex-col items-center-safe">
-            <img src={Delivery3} alt="" className="xs:w-16 xs:h-10 xl:w-28 xl:h-22 object-contain mx-auto pl-1" />
-          </div>
-
+        {/* Delivery Icons Optimized */}
+        <div className="flex items-center gap-8 mt-10">
+          {[Delivery1, Delivery2, Delivery3].map((img, idx) => (
+            <img 
+              key={idx} 
+              src={img} 
+              alt="Delivery Info" 
+              loading="lazy" 
+              className="h-8 md:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all opacity-80"
+            />
+          ))}
         </div>
 
-        {/* Divider */}
-        <div className="bg-textGray w-full h-px xs:mt-5 lg:mt-7 xl:mt-2"></div>
+        <div className="bg-textGray w-full h-px xs:mt-5 lg:mt-7 xl:mt-6"></div>
 
-        {/* Description */}
-        <div className="mt-5">
-          <h2 className="xs:text-Paragraph2 lg:text-Paragraph1 font-bold font-Poppins text-textSecondary">
-            Description
-          </h2>
-          <h3 className="xs:text-Paragraph5 lg:text-Paragraph4 font-bold font-Poppins text-textSecondary">
-            Ingredients
-          </h3>
-          <p className="text-textWhite leading-relaxed max-w-[90%] mt-2 font-Lato text-Paragraph6">
+        {/* Description & Ingredients */}
+        <div className="mt-6">
+          <h2 className="text-Paragraph2 font-bold font-Poppins text-textSecondary uppercase tracking-wider">Description</h2>
+          <h3 className="text-Paragraph5 font-bold font-Poppins text-textSecondary mt-2">Ingredients:</h3>
+          <p className="text-textWhite leading-relaxed mt-2 font-Lato text-Paragraph6 opacity-90 max-w-xl">
             {product.p_description}
           </p>
         </div>
@@ -251,9 +170,10 @@ const HeroProduct = ({ product }) => {
               <li className="tracking-tight leading-tight">Shipped By: Kausar</li>
           </ul>
         </div>
+
       </div>
     </section>
   );
 };
 
-export default HeroProduct;
+export default memo(HeroProduct);

@@ -1,4 +1,3 @@
-// Slider.jsx
 import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
@@ -20,8 +19,11 @@ const Slider = ({ products, maxVisible = 10 }) => {
       spaceBetween={30}
       freeMode={true}
       loop={true}
+      // Performance settings
+      watchSlidesProgress={true}
+      grabCursor={true}
       autoplay={{
-        delay: 1500,
+        delay: 2500, // Slightly increased for better TBT score
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }}
@@ -36,7 +38,7 @@ const Slider = ({ products, maxVisible = 10 }) => {
     >
       {visibleProducts.map((product) => (
         <SwiperSlide key={product.id}>
-          <div className="flex flex-col items-center-safe">
+          <div className="flex flex-col items-center-safe min-h-[400px]">
             <FeaturedCards product={product} />
           </div>
         </SwiperSlide>

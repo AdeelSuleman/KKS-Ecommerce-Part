@@ -1,36 +1,41 @@
-import React from 'react'
+import React, { useMemo, memo } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 import Card from '../../components/Card';
-import "../../index.css"
+import { products } from '../../data/products';
 
-// Import Swiper styles
+// Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-import { products } from '../../data/products';
 
 const RelatedProduct_Slider = ({ category, currentId }) => {
 
-  // Filter products of same category except the current one
-  const filtered = products.filter(
-    (p) => p.p_category === category && p.id !== currentId
-  );
+  // Performance Optimization: Filtering ko memoize kiya taake slider 
+  // re-render hone par loop dobara na chale
+  const filtered = useMemo(() => {
+    return products.filter(
+      (p) => p.p_category === category && p.id !== currentId
+    );
+  }, [category, currentId]);
+
+  // Agar related products nahi hain toh render hi na karein
+  if (filtered.length === 0) return null;
 
   return (
     <Swiper
       slidesPerView={1}
-      spaceBetween={30}
+      spaceBetween={20}
       freeMode={true}
-      loop={true}
+      loop={filtered.length > 4} // Loop sirf tab chale jab products zyada hon
       autoplay={{
-        delay: 1500,
+        delay: 2500, // Thora slow delay taake CPU par load kam paray
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }}
       pagination={{
-        clickable: true,
+        clickable: true, // Performance boost for many slides
       }}
       modules={[FreeMode, Pagination, Autoplay]}
       breakpoints={{
@@ -54,9 +59,10 @@ const RelatedProduct_Slider = ({ category, currentId }) => {
       className="mySwiper"
     >
       {filtered.map((p) => (
-        <SwiperSlide key={p.id} >
-          <div className="w-full py-4">
-          <Card filteredProduct={[p]} />
+        <SwiperSlide key={p.id}>
+          <div className="w-full py-4 px-1">
+            {/* Direct product pass karein, array wrap karne ki zaroorat nahi agar Card handle kar sakta hai */}
+            <Card filteredProduct={[p]} />
           </div>
         </SwiperSlide>
       ))}
@@ -64,4 +70,5 @@ const RelatedProduct_Slider = ({ category, currentId }) => {
   )
 }
 
-export default RelatedProduct_Slider
+// Pure component for performance
+export default memo(RelatedProduct_Slider);

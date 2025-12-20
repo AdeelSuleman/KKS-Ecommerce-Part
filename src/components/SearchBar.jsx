@@ -14,7 +14,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const wrapperRef = useRef(null);
 
-  /* ---------------- FILTER PRODUCTS ---------------- */
+/* ---------------- FILTER PRODUCTS ---------------- */
 const filteredProducts = useMemo(() => {
   if (!searchQuery && selectedCategory === "All Categories") return [];
 
@@ -22,6 +22,18 @@ const filteredProducts = useMemo(() => {
     selectedCategory === "All Categories"
       ? products
       : products.filter(p => p.p_category === selectedCategory);
+
+  // Set default price based on smallest weight
+  data = data.map(p => {
+    const weights = p.p_gram.map(w => parseInt(w)); // "1000g" -> 1000
+    const minWeight = Math.min(...weights);
+    const defaultWeight = p.p_gram.find(w => parseInt(w) === minWeight);
+    return {
+      ...p,
+      p_price: p.p_weightPrice[defaultWeight],
+      defaultWeight,
+    };
+  });
 
   return searchQuery
     ? data.filter(p =>

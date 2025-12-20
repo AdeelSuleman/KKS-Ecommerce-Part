@@ -1,15 +1,12 @@
-import { memo } from 'react'
-import { CartProvider } from './context/CartContext'
-import AppRoutes from './routes/AppRoutes'
+import { CartProvider } from "./context/CartContext";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-
-  const MemoRoutes = memo(AppRoutes);
   return (
-      <CartProvider>
-        <MemoRoutes/>
-      </CartProvider>
-  )
+    <CartProvider>
+      <AppRoutes />
+    </CartProvider>
+  );
 }
 
-export default App
+export default App;

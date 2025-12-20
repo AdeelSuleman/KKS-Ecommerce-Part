@@ -1,20 +1,31 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Page404 from '../pages/Page404'
-import AppLayout from '../layouts/AppLayout'
-import { memo } from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { memo } from "react";
+import AppLayout from "../layouts/AppLayout";
+import Page404 from "../pages/Page404";
+// Pages ko yahan lazy load karein taake AppLayout saaf rahe
+import { lazy } from "react";
+
+const Home = lazy(() => import("../pages/Home/Home"));
+const Shop = lazy(() => import("../pages/Shop/Shop"));
+const Product_Details = lazy(() => import("../pages/ProductDetails/Product_Details"));
+const CartPage = lazy(() => import("../pages/Cart/CartPage"));
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter> 
-        <Routes>
-            <Route path="/" element=<AppLayout/> />
-            <Route path="/shop" element=<AppLayout/> />
-            <Route path="/product/:id" element=<AppLayout/> />
-            <Route path="/cart" element=<AppLayout/> />
-            <Route path='*' element=<Page404/> />
-        </Routes>
+    <BrowserRouter>
+      <Routes>
+        {/* AppLayout wrapper hai, iske andar Outlet mein baki pages render honge */}
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<Product_Details />} />
+          <Route path="/cart" element={<CartPage />} />
+        </Route>
+
+        <Route path="*" element={<Page404 />} />
+      </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default memo(AppRoutes);

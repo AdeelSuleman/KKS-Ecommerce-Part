@@ -14,9 +14,9 @@ export const CartProvider = ({ children }) => {
   });
 
   // ✅ LocalStorage sync (safe)
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+useEffect(() => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}, [cart]);
 
   // ✅ Stable functions (NO re-creation)
   const addToCart = useCallback((product) => {

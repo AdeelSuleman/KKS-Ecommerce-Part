@@ -4,46 +4,27 @@ import { useNavigate } from "react-router-dom";
 
 const Card = ({ filteredProduct }) => {
   const [hoveredId, setHoveredId] = useState(null);
-  const [selectedWeightMap, setSelectedWeightMap] = useState(() => {
-    // By default, all products select 1000g
-    const map = {};
-    filteredProduct.forEach((p) => {
-      map[p.id] = "1000g";
-    });
-    return map;
-  });
-
   const navigate = useNavigate();
 
-  const openProductDetails = useCallback(
-    (id) => {
-      navigate(`/product/${id}`);
-    },
-    [navigate]
-  );
-
-  const handleWeightClick = (productId, weight) => {
-    setSelectedWeightMap((prev) => ({
-      ...prev,
-      [productId]: weight,
-    }));
-  };
+  const openProductDetails = useCallback((id) => {
+    navigate(`/product/${id}`);
+  }, [navigate]);
 
   return (
     <>
       {filteredProduct.map((product) => {
-        const selectedWeight = selectedWeightMap[product.id] || "1000g";
-        const packaging = product.p_packaging?.[selectedWeight] || [];
+        // Defaulting to 1000g logic simplified
+        const selectedWeight = "1000g"; 
 
         return (
           <div
             key={product.id}
-            className="border border-textWhite rounded-2xl shadow-md overflow-hidden relative transition-all duration-300 h-fit cursor-pointer
-               hover:shadow-lg hover:shadow-gray-800"
+            className="border border-textWhite rounded-2xl shadow-md overflow-hidden relative transition-all duration-300 h-fit cursor-pointer hover:shadow-lg hover:shadow-textGray "
             onMouseEnter={() => setHoveredId(product.id)}
             onMouseLeave={() => setHoveredId(null)}
             onClick={() => openProductDetails(product.id)}
           >
+            {/* Image Container with Fixed Height to prevent Layout Shift */}
             <div className="relative w-full overflow-hidden bg-white flex flex-col items-center h-[220px]">
               <div
                 className="absolute left-36 -translate-x-1/2 bottom-6 w-36 h-20 rounded-tr-full"
@@ -51,35 +32,35 @@ const Card = ({ filteredProduct }) => {
                   background:
                     "radial-gradient(ellipse at center, rgba(140,140,140,0.95) 0%, rgba(110,110,110,0.85) 35%, rgba(80,80,80,0.6) 60%, transparent 100%)",
                   filter: "blur(10px)",
-                  zIndex: 5,
+                  zIndex: 0,
                   pointerEvents: "none",
                   mixBlendMode: "normal",
                   opacity: 0.95,
                 }}
               />
-
               <img
                 src={product.p_image}
                 alt={product.p_name}
                 loading="lazy"
                 decoding="async"
-                className={`w-[170px] object-contain transition-opacity duration-300 ease-in-out ${hoveredId === product.id
-                  ? "opacity-0 h-[220px] z-10"
-                  : "opacity-100 h-full z-10"
-                  }`}
-                style={{ backfaceVisibility: "hidden" }}
+                width="170"
+                height="220"
+                className={`w-[170px] h-full object-contain transition-opacity duration-300 absolute ${
+                  hoveredId === product.id ? "opacity-0" : "opacity-100"
+                }`}
               />
-
+              
+              {/* Secondary Image (Hover) - Only loads when needed or lazily */}
               <img
                 src={product.p_images[0]}
-                alt={product.p_name}
+                alt={`${product.p_name} hover`}
                 loading="lazy"
                 decoding="async"
-                className={`absolute top-0 w-[170px] object-contain transition-opacity duration-300 ease-in-out ${hoveredId === product.id
-                  ? "opacity-100 h-[220px] z-10 scale-110"
-                  : "opacity-0 h-full z-10 "
-                  }`}
-                style={{ backfaceVisibility: "hidden" }}
+                width="170"
+                height="220"
+                className={`w-[170px] h-full object-contain transition-all duration-300 ${
+                  hoveredId === product.id ? "opacity-100 scale-110" : "opacity-0"
+                }`}
               />
             </div>
 
@@ -92,7 +73,7 @@ const Card = ({ filteredProduct }) => {
             )}
 
             <div className="px-4 pt-1 pb-4">
-              <h3 className="text-textWhite font-Lato font-bold xs:text-Paragraph3 lg:text-Paragraph4 xl:text-Paragraph2">
+              <h3 className="text-textWhite font-Lato font-bold xs:text-Paragraph3 lg:text-Paragraph4 xl:text-Paragraph2 truncate">
                 {product.p_name}
               </h3>
               <p className="text-textGray font-Lato font-normal xs:text-Paragraph6 text-Paragraph5 -mt-1">
@@ -129,7 +110,6 @@ const Card = ({ filteredProduct }) => {
                   </div>
                 ))}
               </div>
-
 
               <AddToCartBtn product={product} selectedWeight={selectedWeight} />
             </div>
